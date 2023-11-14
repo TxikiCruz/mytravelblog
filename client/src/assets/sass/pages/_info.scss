@@ -1,0 +1,28 @@
+
+
+.formInfo {
+  width: 40rem;
+  margin: 0 auto;
+  label {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: .5rem;
+    >span {
+      font-size: 1.1rem;
+    }
+  }
+  .fsPl {
+    input.formControl {
+      width: 84%;
+      margin: 0 1% 0 0;
+    }
+    .btn {
+      width: 15%;
+      padding:1rem;
+      font-size: 1.3rem;
+    }
+    select {
+      margin-top:1rem;
+    }
+  }
+}

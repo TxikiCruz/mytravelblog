@@ -1,0 +1,226 @@
+import { useState, useEffect, useRef } from 'react'
+import axios from 'axios'
+import Moment from 'react-moment'
+import { sortBy } from "lodash"
+import { MdDelete, MdEdit, MdClose, MdCheckCircle } from 'react-icons/md'
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
+import { URL } from '../../config'
+import AddExperience from './AddExperience'
+import SelectCategories from '../../components/common/SelectCategories'
+import Pagination from '../../components/common/Pagination'
+import Msgbox from '../../components/common/Msgbox'
+import ImageUpload from '../ImageUpload'
+import thumb from '../../assets/images/thumb.png'
+
+const Experiences = ({ user }) => {
+  const [newValues, setNewValues] = useState({ title: '', category: '', content: '' })
+  const [selectedFilename, setSelectedFilename] = useState(null)
+  const [message, setMessage] = useState({ body: '', classname: '' })
+  const [updateActive, setUpdateActive] = useState(null)
+  const childRef = useRef()
+
+  // fetch Experiences
+  const [experiences, setExperiences] = useState<Array<Experience>>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | undefined>(undefined)
+  const selectedExperiences = useAppSelector(experiencesSelector)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    setLoading(selectedExperiences.loading)
+    setError(selectedExperiences.error)
+    setExperiences(selectedExperiences.experiences)
+  }, [selectedExperiences])
+
+  function handleFetchExperiences() {
+    dispatch(fetchExperiences())
+  }
+
+  useEffect(() => {
+    handleFetchExperiences()
+  }, [])
+
+  // Show Add experience form
+  const [isFormAddVisible, setIsFormAddVisible] = useState(false)
+  const showFormAdd = () => {
+    !isFormAddVisible ? setIsFormAddVisible(true) : setIsFormAddVisible(false)
+  }
+
+  const handleChangeUpdate = e => {
+    setNewValues({ ...newValues, [e.target.name]: e.target.value })
+  }
+
+  const onClickDelete = async (id) => {
+    try {
+      let url = `${URL}/admin/experiences/delete`
+      await axios.post(url, { _id: id })
+      handleFetchExperiences()
+      setMessage({ body: `Experience deleted!`, classname: 'msg_ok' })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onClickClose = (e) => {
+    e.preventDefault()
+    setUpdateActive(null)
+  }
+
+  const getImaUpdExp = (id, data) => {
+    let ima = ''
+    if (data.filename) {
+      ima = data.filename
+    } else {
+      ima = newValues.image
+    }
+    //updateExp(id, ima)
+  }
+
+  const onClickShowUpdate = (idx) => {
+    setUpdateActive(idx)
+    let idExp = experiences.findIndex(e => e._id === idx)
+    setNewValues({ user: experiences[idExp].user, image: experiences[idExp].image, title: experiences[idExp].title, category: experiences[idExp].category, content: experiences[idExp].content, score: experiences[idExp].score })
+  }
+
+  const updateExperience = async (id) => {
+    try {
+      let url = `${URL}/admin/experiences/update`
+      await axios.post(url, { _id: id, user: newValues.user, image: selectedFilename, title: newValues.title, category: newValues.category, content: newValues.content, score: newValues.score })
+      handleFetchExperiences()
+      setUpdateActive(null)
+      setMessage({ body: `Experience updated!`, classname: 'msg_ok' })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const sortedExps = sortBy(experiences, ['date']).reverse()
+  const currentExps = sortedExps.slice(indexOfFirstItem, indexOfLastItem)
+  const paginate = (i: number) => setCurrentPage(i)
+
+  return <div className="content exps">
+    <div className="content_top">
+      <h2 className="content_top_title">Experiences</h2>
+
+      <button type="button" className="btn btn_admin" onClick={showFormAdd}>
+        {!isFormAddVisible ? 'Add new experience' : 'Close'}
+      </button>
+    </div>
+
+    <AddExperience user={user} handleFetchExperiences={handleFetchExperiences} isFormAddVisible={isFormAddVisible} />
+
+    <form className="form">
+      <div className="table">
+        <div className="tGroup tHead">
+          <div className="tRow">
+            <div className="tCol w7_5"><span><strong>Date</strong></span></div>
+            <div className="tCol w10"><span><strong>User</strong></span></div>
+            <div className="tCol w15"><span><strong>Image</strong></span></div>
+            <div className="tCol w10"><span><strong>Category</strong></span></div>
+            <div className="tCol w15"><span><strong>Title</strong></span></div>
+            <div className="tCol w27_5"><span><strong>Content</strong></span></div>
+            <div className="tCol w7_5 center"><span><strong>Score</strong></span></div>
+            <div className="tCol w10 center"><span><strong>Action</strong></span></div>
+          </div>
+        </div>
+        {
+          currentExps.map((ele) => {
+            return <div className="tGroup" key={ele._id}>
+              <div className="tRow">
+                <div className="tCol">
+                  <span><Moment format="YYYY/MM/DD">{ele.date}</Moment></span>
+                </div>
+                <div className="tCol ellipsis">
+                  <span>{ele.user}</span>
+                </div>
+                <div className="tCol thumb">
+                  {ele.image !== '' ?
+                    <img src={`${URL}/static/images/${ele.image}`} alt={ele.title} />
+                    : <img src={thumb} alt={ele.title} />
+                  }
+                </div>
+                <div className="tCol">
+                  <span>{ele.category}</span>
+                </div>
+                <div className="tCol">
+                  <span>{ele.title}</span>
+                </div>
+                <div className="tCol cont">
+                  <span>{ele.content}</span>
+                </div>
+                <div className="tCol center">
+                  <span>{ele.score}</span>
+                </div>
+                <div className="tCol center">
+                  <div className="icons">
+                    {updateActive !== ele._id ?
+                      <button type="button" className="btn_action" onClick={() => onClickShowUpdate(ele._id)}>
+                        <MdEdit />
+                      </button>
+                      : null}
+                    <button type="button" className="btn_action" onClick={() => onClickDelete(ele._id)}>
+                      <MdDelete />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {updateActive === ele._id ?
+                <div className="tRow sup">
+                  <div className="tCol"></div>
+                  <div className="tCol"></div>
+                  <div className="tCol">
+                    <ImageUpload setSelectedFilename={setSelectedFilename} isImageWithTitle={false} />
+                  </div>
+                  <div className="tCol">
+                    <SelectCategories handleChange={handleChangeUpdate} selected={ele.category} />
+                  </div>
+                  <div className="tCol">
+                    <input type="text" name="title" className="form_control" placeholder="Write your title" defaultValue={ele.title} onChange={handleChangeUpdate} />
+                  </div>
+                  <div className="tCol">
+                    <textarea name="content" className="form_control" placeholder="Write your content" defaultValue={ele.content} onChange={handleChangeUpdate} />
+                  </div>
+                  <div className="tCol score center">
+                    <input type="text" name="score" className="form_control" placeholder="" defaultValue={ele.score} onChange={handleChangeUpdate} />
+                  </div>
+                  <div className="tCol">
+                    <div className="icons">
+                      <button type="button" className="btn_action green" onClick={() => updateExperience(ele._id)}>
+                        <MdCheckCircle />
+                      </button>
+                      <button type="button" className="btn_action" onClick={onClickClose}>
+                        <MdClose />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                : null}
+            </div>
+          })
+        }
+      </div>
+      
+      <Msgbox message={message.body} classname={message.classname} />
+    </form>
+
+    {
+      experiences.length > 0 && experiences.length > itemsPerPage &&
+
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        totalItems={experiences.length}
+        paginate={paginate}
+      />
+    }
+  </div>
+}
+
+export default Experiences

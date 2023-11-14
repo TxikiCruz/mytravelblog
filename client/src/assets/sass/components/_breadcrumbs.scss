@@ -1,0 +1,25 @@
+.breadcrumbs {
+  padding: 0.75rem;
+  border-bottom: 0.1rem solid $colorTableHeader;
+
+  ul {
+    display: flex;
+    padding: 0 1rem;
+
+    > li {
+      font-size: 1.3rem;
+
+      &:not(:last-of-type) {
+        &::after {
+          content: '>';
+          color: $color4;
+          margin: 0 1rem;
+        }
+      }
+
+      > span {
+        color: $color4;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+// font oly for numbers
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&text=0123456789');
+
+// general font
+@font-face {
+  font-family: 'Catamaran';
+  src: url('../fonts/Catamaran-Light.woff2') format('woff2'),
+      url('../fonts/Catamaran-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  src: url('../fonts/Catamaran-Medium.woff2') format('woff2'),
+      url('../fonts/Catamaran-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  src: url('../fonts/Catamaran-Regular.woff2') format('woff2'),
+      url('../fonts/Catamaran-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Catamaran';
+  src: url('../fonts/Catamaran-SemiBold.woff2') format('woff2'),
+      url('../fonts/Catamaran-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

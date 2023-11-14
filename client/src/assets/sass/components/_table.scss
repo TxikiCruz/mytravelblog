@@ -1,0 +1,147 @@
+// table
+.table {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  position: relative;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 2rem 0 4rem;
+
+  time {
+    font-size: 1.2rem;
+  }
+
+  .tGroup {
+    display: table-row-group;
+  }
+
+  .tHead {
+    background-color: $colorTableHeader;
+
+    .tCol {
+      height: auto;
+    }
+  }
+
+  .tRow {
+    display: table-row;
+
+    &.sup {
+      background-color: $colorTableHeader;
+
+      .tCol {
+        border: 0;
+        padding: 1rem 0.5rem;
+      }
+    }
+  }
+
+  .tCol {
+    height: 4.8rem;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 1rem 0.5rem;
+    border-top: 0.1rem solid $colorTableHeader;
+    @media (min-width: $screenSm) {
+      padding: 1rem 2rem;
+    }
+
+    &.colspan {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &.center {
+      text-align: center;
+
+      .icons {
+        justify-content: center;
+      }
+    }
+
+    &.right {
+      text-align: right;
+      padding-right: 3rem;
+    }
+
+    &.w5 {
+      width: 5%;
+    }
+    &.w7_5 {
+      width: 7.5%;
+    }
+    &.w10 {
+      width: 10%;
+    }
+    &.w15 {
+      width: 15%;
+    }
+    &.w20 {
+      width: 20%;
+    }
+    &.w25 {
+      width: 25%;
+    }
+    &.w27_5 {
+      width: 27.5%;
+    }
+    &.w30 {
+      width: 30%;
+    }
+    &.w33 {
+      width: calc(100 / 3);
+    }
+    &.w40 {
+      width: 40%;
+    }
+    &.w50 {
+      width: 50%;
+    }
+
+    &.scroll {
+      overflow-x: auto;
+      padding-left: 0;
+      padding-right: 0;
+
+      &::-webkit-scrollbar {
+        height: 0.2rem;
+      }
+     
+      &::-webkit-scrollbar-track {
+        background-color: $colorTableHeader;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: $color3;
+      }
+    }
+
+    &.thumb {
+      > img {
+        width: 100%;
+      }
+    }
+
+    &.ellipsis {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &.score {
+      .form_control {
+        width: 4rem;
+      }
+    }
+
+    .modImaUp {
+      margin-bottom: 0;
+
+      .formFile {
+        width: 12rem;
+      }
+    }
+  }
+}

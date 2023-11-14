@@ -1,0 +1,53 @@
+/* grid */
+.container{
+  width:100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  @media (min-width: $screenSm){
+    max-width: $containerSm;
+  }
+  @media (min-width: $screenMd){
+    max-width: $containerMd;
+  }
+  @media (min-width: $screenLg){
+    max-width: $containerLg;
+  }
+  @media (min-width: $screenXlg){
+    max-width: $containerXlg;
+  }
+  &.full {
+    max-width: none;
+  }
+}
+
+.row{
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  &.centerH {
+    justify-content: center;
+  }
+  &.around {
+    justify-content: space-around;
+  }
+  &.between {
+    justify-content: space-between;
+  }
+  &.end {
+    justify-content: flex-end;
+  }
+  &.centerV {
+    align-items:center;
+  }
+  &.reverse {
+    flex-direction:row-reverse;
+  }
+  &.noWrap {
+    @media (min-width: $screenSm){
+      flex-wrap: nowrap;
+    }
+  }
+}

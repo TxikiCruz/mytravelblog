@@ -1,0 +1,25 @@
+
+.mod_contact {
+  padding: 4rem 0;
+  text-align: center;
+
+  .top {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-size: 1.8rem;
+    color: $color3;
+    font-weight: normal;
+  }
+
+  .form_contact {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,72 @@
+// general styles
+body, h1, h2, h3, input, button {
+  font-family: $font1;
+}
+
+a {
+  color: $color2;
+}
+
+// general structure
+.page {
+  min-height: 70vh;
+
+  .flex {
+    flex-wrap: wrap;
+  }
+}
+
+.wrapper {
+  padding: 4rem 0;
+}
+
+.content_page {
+  margin-bottom: 2rem;
+  @media (min-width: $screenMd) {
+    @include cols(8);
+    margin-bottom: 0;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  @media (min-width: $screenMd) {
+    @include cols(4);
+  }
+}
+
+// helpers
+.flex {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+// ok and error messages after actions
+.msg {
+  font-size: 1.8rem;
+  font-weight: $fontBold;
+  
+  &_ok {
+    color: $colorGreen;
+  }
+
+  &_error {
+    color: $colorRed;
+  }
+}
+
+.txtNotFound {
+  font-size: 2rem;
+  color: $colorRed;
+  text-align: center;
+  padding-top: 5rem;
+}
+
+.thumb {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+}

@@ -1,0 +1,49 @@
+*, *::after, *::before {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+	text-decoration: none;
+	cursor:pointer;
+
+	&:hover,
+	&:focus,
+	&:active {
+    outline: 0;
+    text-decoration: none;
+	}
+}
+
+ul, ol {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+
+p, h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	max-width:100%;
+}
+
+button {
+  cursor: pointer;
+  &:focus {
+    outline:0;
+    border:0;
+  }
+}
+
+
+

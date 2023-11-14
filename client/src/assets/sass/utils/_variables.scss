@@ -1,0 +1,43 @@
+// BREAKPOINTS
+/* 480px */
+$containerXs: 48rem;
+$screenXs: 30em;
+/* 768px */
+$containerSm: 76.8rem;
+$screenSm: 48em;
+/* 992px */
+$containerMd: 99.2rem;
+$screenMd: 62em;
+/* 1200px */
+$containerLg: 120rem;
+$containerLg110: 110rem;
+$screenLg: 75em;
+/* 1600px */
+$containerXlg: 160rem;
+$screenXlg: 100em;
+
+// COLORS
+$color1: #1c2b39;
+$color2: #B17634;
+$color3: #263545;
+$color4: #969dac;
+$color5: #f8f8f8;
+$colorWhite: #ffffff;
+$colorGreen: #00A86B;
+$colorRed: #C21807;
+$colorTableHeader: #f0f0f0;
+
+// FONTS
+$font1: 'Open Sans', 'Catamaran', sans-serif;
+
+$fontLight: 300;
+$fontRegular: normal;
+$fontMedium: 500;
+$fontBold: 600;
+
+// DIMENSIONS
+$header-size: (
+  small: 6rem,
+  medium: 6rem,
+  large: 6rem
+);

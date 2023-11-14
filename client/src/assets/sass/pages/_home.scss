@@ -1,0 +1,19 @@
+// Home styles
+.intro {
+  padding: 8rem;
+  text-align: center;
+
+  .logo {
+    width: 5rem;
+    margin: 1rem;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .btn {
+    margin: 2rem 0;
+  }
+}

@@ -1,0 +1,123 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &_center {
+    @media (min-width: $screenSm) {  
+      margin-right: 2rem;
+    }
+  }
+
+  &_right {
+    display: flex;
+    align-items: center;
+  }
+
+  &_login {
+    position: relative;
+  }
+
+  &_list {
+    opacity: 0;
+    visibility: hidden;
+    min-width: 13rem;
+    position: absolute;
+    top: 4.7rem;
+    right: 0;
+    z-index: 200;
+    background-color: $color2;
+    padding: 1rem;
+    border-radius: 0 0 1rem 1rem;
+    transition: all 0.3s ease-in-out;
+    @media (min-width: $screenSm) {
+      min-width: 10rem;
+    }
+    
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    > li {
+      text-align: right;
+      margin: 0.25rem 0;
+      @media (min-width: $screenSm) {
+        margin: 0 0 0 2rem;
+      }
+
+      > a {
+        font-size: 1.6rem;
+        color: $colorWhite;
+        @media (min-width: $screenSm) {
+          font-size: 1.5rem;
+        }
+
+        &.active {
+          font-weight: $fontBold;
+        }
+      }
+    }
+
+    &.main {
+      @media (min-width: $screenSm) {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+        min-width: 0;
+        position: static;
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+        align-items: center;
+      }
+
+      > li {
+        > a {
+          &:hover {
+            border-bottom: 0.2rem solid $colorWhite;
+          }
+        }
+      }
+    }
+
+    &.login {
+      > li {
+        > a {
+          &:hover {
+            font-weight: $fontBold;
+          }
+        }
+      }
+    }
+  }
+
+  .btn_icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    color: $colorWhite;
+    transition: all 0.3s ease-in-out;
+
+    &.btn_menu {
+      @media (min-width: $screenSm) {
+        display: none;
+      }
+    }
+    
+    &.btn_login {
+      @media (min-width: $screenSm) {
+        display: block;
+        background-color: $color2;
+        font-size: 1.5rem;
+        line-height: inherit;
+        border: 0;
+        padding: 0.6rem 2rem;
+        margin-left: 1rem;
+        border-radius: 2.5rem;
+      }
+
+      &:hover {
+      }
+    }
+  }
+}

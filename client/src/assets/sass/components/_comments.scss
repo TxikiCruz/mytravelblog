@@ -1,0 +1,17 @@
+/* comments */
+.modComments {
+  margin:8rem 0;
+  padding:2rem 0;
+  border-top:.1rem solid #ddd;
+  .list {
+    > li {
+      display: flex;
+      padding:2rem 0;
+      border-bottom: .1rem solid #ddd;
+      p {
+        font-size: 1.4rem;
+        margin-right: 2rem;
+      }
+    }
+  }
+}

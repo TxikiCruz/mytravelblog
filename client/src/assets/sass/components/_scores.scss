@@ -1,0 +1,11 @@
+/* scores */
+.sScores {
+  margin-top:4rem;
+  .stars{ 
+    svg {
+      font-size: 4rem;
+      color: $color2;
+      cursor: pointer;
+    }
+  }
+}

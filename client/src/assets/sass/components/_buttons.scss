@@ -1,0 +1,64 @@
+// reset
+button {
+  background: none;
+  appearance: none;
+  border: 0;
+  outline: 0;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  background-color: $color2;
+  color: $colorWhite;
+  font-size: 1.8rem;
+  padding: 1rem 3rem;
+  border: 0.1rem solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &.active,
+  &:hover {
+    border-color: $color2;
+    background-color: $colorWhite;
+    color: $color1;
+  }
+
+  &_link {
+    display: inline;
+    width: auto;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    font-size: 1.4rem;
+  }
+
+  &_icon {
+    line-height: 1;
+    padding: 0;
+  }
+
+  &_admin {
+    width: auto;
+    height: 4.5rem;
+    font-size: 1.6rem;
+    white-space: nowrap;
+    padding: 0.5rem 2rem;
+  }
+
+  &_action {
+    display: flex;
+    font-size: 2rem;
+    line-height: 1;
+
+    &.green {
+      color: $colorGreen;
+    }
+
+    &.red {
+      color: $colorRed;
+    }
+  }
+}

@@ -1,0 +1,168 @@
+input {
+  appearance: none;
+  box-shadow: none;
+  border: 0;
+  outline: 0;
+}
+
+select {
+  max-width: 40rem;
+  cursor: pointer;
+
+  &.form_control {
+    min-height: 0;
+    padding: 0;
+    outline: 0;
+  }
+}
+
+fieldset {
+  border: 0;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.form_control {
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-family: $font1;
+  border: 0.1rem solid $color4;
+  margin-bottom: 1rem;
+
+  &::placeholder {
+    font-style: italic;
+  }
+}
+
+// Switch checkbox
+.switch {
+  &_label {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 2rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 2rem;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius:50%;
+      background-color: $colorWhite;
+      top: 0.1rem;
+      left: 0.1rem;
+      transition: all 0.3s;
+    }
+  }
+
+  &_checkbox {
+    display: none;
+
+    &:checked + .switch_label::after {
+      left: 2rem;
+    }
+
+    &:checked + .switch_label {
+      background-color: $color2;
+    }
+  }
+}
+
+// input file
+input[type="file"] {
+  padding: 0.5rem 0;
+  margin: 0;
+  position: relative;
+  outline: none;
+
+  /* File Selector Button Styles */
+  &::file-selector-button {
+    width: 13rem;
+    color: transparent;
+    border-radius: 0.4rem;
+    padding: 0 1rem;
+    height: 3.8rem;
+    background-color: white;
+    border: 0.1rem solid $color1;
+    margin-right: 1rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    /*
+      Firefox doesn't support the pseudo ::before 
+      or ::after elements on this input field so 
+      we need to use the @supports rule to enable 
+      default styles fallback for Firefox.
+    */
+    @supports (-moz-appearance: none) {
+      color: $color1;
+    }
+
+    &:hover {
+      border-color: $color2;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    top: 1.4rem;
+    left: 1.6rem;
+    height: 2rem;
+    width: 2rem;
+    // MdOutlineFileUpload svg icon converted to data URI
+    background-image: url('data:image/svg+xml,<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.3rem" width="1.3rem" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z"></path></svg>');
+    background-repeat: no-repeat;
+  }
+  
+  &::after {
+    content: "Select File";
+    position: absolute;
+    pointer-events: none;
+    top: 1.4rem;
+    left: 4.4rem;
+  }
+}
+
+// input range
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none; 
+  width: 100%;
+  border-radius: 1.6rem;
+  outline: none;
+  overflow: hidden;
+
+  &::-webkit-slider-runnable-track {
+    height: 1.5rem;
+    background: $colorTableHeader;
+    border-radius: 1.6rem;
+  }
+
+  &::-moz-range-track {
+    height: 1.5rem;
+    background: $colorTableHeader;
+    border-radius: 1.6rem;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1.5rem;
+    width: 1.5rem;
+    box-shadow: -40.7rem 0 0 40rem $color2;
+  }
+
+  &::-moz-range-thumb {
+    height: 1.5rem;
+    width: 1.5rem;
+    box-shadow: -40.7rem 0 0 40rem $color2;
+  }  
+}
