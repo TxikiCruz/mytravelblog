@@ -10,8 +10,8 @@ const CommentsByExp = ({ comments }) => {
     {comments.length > 0 ?
       <ul className="list">
         {
-          comments.map((ele) => {
-            return <li key={ele._id}>
+          comments.map((ele, i) => {
+            return <li key={`comment-${i}`}>
               <p className="comment">"{ele.content}"</p>
               <p className="info">
                 <span className="user">{ele.user}</span>
@@ -22,7 +22,7 @@ const CommentsByExp = ({ comments }) => {
             </li>
           })
         }
-      </ul> : <p className="comment">No Comments for this experience yet</p>}
+      </ul> : <p className="no_results">No Comments for this experience yet</p>}
   </aside>
 }
 

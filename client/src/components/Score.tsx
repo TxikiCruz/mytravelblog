@@ -6,15 +6,11 @@ const Score = ({ scores, exp }) => {
   const [score, setScore] = useState(null)
   const [hasScore, setHasScore] = useState(false)
 
-  useEffect(() => {
-    getScore()
-  }, [scores, score])
-
   const getScore = () => {
     let tempSc = []
     for (let ele of scores) {
       if (exp === ele.experience) {
-        if (ele.score !== '') {
+        if (ele.score) {
           tempSc.push(ele.score)
           setHasScore(true)
         }
@@ -39,6 +35,10 @@ const Score = ({ scores, exp }) => {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    getScore()
+  }, [scores, score])
 
   return <p className="score">
     {hasScore && <>{score}<span>/5</span></>}

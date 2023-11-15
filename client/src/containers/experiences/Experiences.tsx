@@ -86,7 +86,15 @@ const Experiences = ({ user }) => {
   const updateExperience = async (id) => {
     try {
       let url = `${URL}/admin/experiences/update`
-      await axios.post(url, { _id: id, user: newValues.user, image: selectedFilename, title: newValues.title, category: newValues.category, content: newValues.content, score: newValues.score })
+      await axios.post(url, { 
+        _id: id, 
+        user: newValues.user, 
+        image: selectedFilename ? selectedFilename : newValues.image, 
+        title: newValues.title, 
+        category: newValues.category, 
+        content: newValues.content, 
+        score: newValues.score 
+      })
       handleFetchExperiences()
       setUpdateActive(null)
       setMessage({ body: `Experience updated!`, classname: 'msg_ok' })

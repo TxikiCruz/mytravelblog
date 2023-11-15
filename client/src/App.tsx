@@ -118,7 +118,7 @@ function App() {
 
       <main>
         <Routes>
-          <Route index path="/" element={<Home />} />
+          <Route index element={<Home />} />
           <Route path="/experiences" element={<AllExperiences />} />
           <Route path="/contact" element={<Contact />} />
           <Route path='/login' element={<Login login={login} />} />

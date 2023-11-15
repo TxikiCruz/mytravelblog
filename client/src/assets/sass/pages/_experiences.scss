@@ -72,47 +72,6 @@
       font-size: 1.4rem;
     }
   }
-
-  .comments_module {
-    margin: 4rem 0;
-    text-align: center;
-
-    .top {
-      margin-bottom: 1rem;
-    }
-
-    .title {
-      display: inline-block;
-      background-color: $colorTableHeader;
-      font-size: 1.8rem;
-      padding: 0.5rem 2rem;
-    }
-
-    .list {
-      > li {
-        padding: 2rem 0;
-
-        &:not(:first-of-type) {
-          border-top: 0.1rem solid $colorTableHeader;
-        }
-      }
-    }
-
-    .comment {
-      font-size: 2.4rem;
-      font-style: italic;
-    }
-
-    .user {
-      font-size: 1.3rem;
-
-      &::after {
-        content: '·';
-        color: $color1;
-        margin: 0 0.5rem;
-      }
-    }
-  }
   
   .score {
     font-size: 2.2rem;

@@ -1,17 +1,57 @@
-/* comments */
-.modComments {
-  margin:8rem 0;
-  padding:2rem 0;
-  border-top:.1rem solid #ddd;
+// Comment module Experience
+.comments_module {
+  margin: 4rem 0;
+  text-align: center;
+
+  .top {
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    background-color: $colorWhite;
+    font-size: 2rem;
+    text-transform: uppercase;
+
+    &::before,
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 100%;
+      height: 0.4rem;
+      background-color: $colorTableHeader;
+      margin: -0.2rem 2rem 0;
+    }
+  }
+
   .list {
     > li {
-      display: flex;
-      padding:2rem 0;
-      border-bottom: .1rem solid #ddd;
-      p {
-        font-size: 1.4rem;
-        margin-right: 2rem;
+      padding: 2rem 0;
+
+      &:not(:first-of-type) {
+        border-top: 0.1rem solid $colorTableHeader;
       }
+    }
+  }
+
+  .comment {
+    font-size: 2.4rem;
+    font-style: italic;
+  }
+
+  .no_results {
+    font-size: 1.8rem;
+    font-style: italic;
+  }
+
+  .user {
+    font-size: 1.3rem;
+
+    &::after {
+      content: '·';
+      color: $color1;
+      margin: 0 0.5rem;
     }
   }
 }

@@ -1,6 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getExps, getExpsStatus, getExpsError, fetchExps } from '../store/slice-experiences'
 import { useAppDispatch, useAppSelector } from '../hooks/useDispatchSelector'
 import { ScoreType, fetchScores, scoresSelector } from '../store/slice-scores'
 import axios from 'axios'
@@ -119,7 +117,6 @@ const Experience = ({ user }) => {
             <>
               <div className="content_top">
                 <h3 className="content_title">{experience.title}</h3>
-                {/* { experience.score && <p className="score">{experience.score}<span>/5</span></p> } */}
                 <Score exp={exp} scores={scores} />
               </div>
 
@@ -153,7 +150,7 @@ const Experience = ({ user }) => {
           </div>
 
           <div className="sidebar_scores">
-            <h3 className="sidebar_title">Score the experience</h3>
+            <h3 className="sidebar_title">Score the experience <span>(1/5)</span></h3>
 
             <Stars exp={exp} user={user} />
           </div>

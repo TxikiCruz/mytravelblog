@@ -6,7 +6,7 @@ import Msgbox from './common/Msgbox'
 
 const Stars = ({ exp, user }) => {
   const [message, setMessage] = useState({ body: '', classname: '' })
-  const [starHover, setStarHover] = useState(null)
+  const [starHover, setStarHover] = useState(-1)
   const stars = []
   const numStars = 5
 
@@ -14,19 +14,15 @@ const Stars = ({ exp, user }) => {
     stars.push(`score${i}`)
   }
 
-  const handleMouseOver = (i) => {
+  const onHandleHover = (i: number) => {
     return setStarHover(i)
   }
 
-  const handleMouseOut = () => {
-    return setStarHover(0)
-  }
-
-  const onClickScore = async (i) => {
+  const onClickScore = async (i: number) => {
     try {
       let url = `${URL}/admin/scores/add`
-      await axios.post(url, { experience: exp, user: user, score: i + 1 })
-      //loadScores()
+      await axios.post(url, { experience: exp, user: user, score: i+1 })
+      window.location.reload() // To calculate the Score with the new value
       setMessage({ body: `Score added!`, classname: 'msg_ok' })
     } catch (error) {
       console.log(error)
@@ -37,11 +33,11 @@ const Stars = ({ exp, user }) => {
     {
       stars.map((ele, i) => {
         return <button
-          key={`star-${i}`}
+          key={ele}
           name={ele}
           className="btn_icon"
-          onMouseOver={() => handleMouseOver(i)}
-          onMouseOut={() => handleMouseOut()}
+          onMouseEnter={() => onHandleHover(i)}
+          onMouseLeave={() => onHandleHover(-1)}
           onClick={() => onClickScore(i)}
         >{starHover === i ? <MdStar /> : <MdStarBorder />}</button>
       })

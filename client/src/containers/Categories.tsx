@@ -7,6 +7,7 @@ import { Cat, fetchCats, catsSelector } from '../store/slice-categories'
 //import { useSelector, useDispatch } from 'react-redux'
 //import { getCats, getCatsStatus, getCatsError, fetchCats } from '../store/slice-categories'
 import { URL } from '../config'
+import SelectContinent from '../components/common/SelectContinent'
 import Pagination from '../components/common/Pagination'
 import Msgbox from '../components/common/Msgbox'
 
@@ -138,7 +139,9 @@ const Categories = () => {
   return <div className="content cats">
     <div className="content_top">
       <h2 className="content_top_title">Categories</h2>
+    </div>
 
+    <div>
       <form className="form" onSubmit={handleSubmit}>
         <input 
           type="text" 
@@ -147,6 +150,9 @@ const Categories = () => {
           value={valueInputAdd}
           onChange={handleChangeInputAdd} 
         />
+
+        <SelectContinent />
+        
         <button className="btn btn_admin">Add new category</button>
       </form>
     </div>
@@ -156,7 +162,9 @@ const Categories = () => {
         <div className="tCol w30">
           <span><strong>Category</strong></span>
         </div>
-        <div className="tCol w40"></div>
+        <div className="tCol w40">
+          <span><strong>Continent</strong></span>
+        </div>
         <div className="tCol w30 right">
           <span><strong>Actions</strong></span>
         </div>
@@ -172,6 +180,7 @@ const Categories = () => {
               <span>{ele.name}</span>
             </div>
             <div className="tCol w40">
+              <span>{ele.continent}</span>
               {updateActive === ele._id ?
                 <input 
                   type="text" 
