@@ -22,7 +22,7 @@ const Card = ({ category, content, date, image, score, title, _id }: ParamsCard)
         <span className="backOp"></span>
         <span className="card_category">{category}</span>
         { score > 0 && <span className="card_score">{score}</span> }
-        <img src={`${URL}/static/images/${image || thumb}`} alt={title} />
+        <img src={image ? `${URL}/static/images/${image}` : thumb} alt={title} />
       </span>
       <p className="card_title">{title}</p>
 

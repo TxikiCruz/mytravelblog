@@ -1,5 +1,4 @@
 import { useState, useEffect, Fragment } from 'react'
-import axios from 'axios'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
 import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
 import { Cat, fetchCats, catsSelector } from '../../store/slice-categories'
@@ -11,7 +10,6 @@ const SearchPageContinent = () => {
   const location = useLocation()
   const [param, setParam] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [searchResults, setSearchResults] = useState([])
 
   // fetch Experiences
   const [experiences, setExperiences] = useState<Array<Experience>>([])
@@ -67,9 +65,17 @@ const SearchPageContinent = () => {
     getPathSearch()
   }, [location.pathname])
 
+  // format continents multiple words
+  const formatContinent = (str: string) => {
+    if (str) {
+      let result = str.split(/\W/).length > 1 ? str.split(' ').join('').toLowerCase() : str.toLowerCase()
+      return result === param.toLowerCase()
+    }
+  }
+
   // Filter experiences that match with Countries result
   useEffect(() => {
-    const catsFiltered = cats.filter(item => item.continent?.toLowerCase() === param)
+    const catsFiltered = cats.filter(item => formatContinent(item.continent))
 
     let temp = []
     Object.values(catsFiltered).forEach((elem) => {
@@ -80,7 +86,7 @@ const SearchPageContinent = () => {
       })
     })
     setExpsFiltered(temp)
-  }, [param])
+  }, [param, cats])
 
 
   return <div className="page search">

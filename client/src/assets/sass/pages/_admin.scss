@@ -81,17 +81,28 @@
     }
 
     &.cats {
-      max-width: 60rem;
+      max-width: 70rem;
       margin: 0 auto;
 
       .content_top {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
       }
       
       .form {
+        margin-bottom: 1rem;
         @media (min-width: $screenSm){
           display: flex;
-          align-items: flex-end;
+          align-items: center;
+        }
+
+        .form_control {
+          @media (min-width: $screenSm){
+            margin: 0 1rem 0 0;
+          }
+        }
+
+        select {
+          min-width: 0;
         }
       }
 

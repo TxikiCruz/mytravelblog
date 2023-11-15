@@ -102,7 +102,7 @@ const Comments = () => {
         paginate={paginate}
       />
     }
-    <Msgbox message={message.body} classname={message.classname} />
+    <Msgbox body={message.body} classname={message.classname} />
   </div>
 }
 

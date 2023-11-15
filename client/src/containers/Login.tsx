@@ -51,7 +51,7 @@ const Login = ({ login }) => {
       <button className="btn">login</button>
     </form>
 
-    <Msgbox message={message.body} classname={message.classname} />
+    <Msgbox body={message.body} classname={message.classname} />
   </div>
 }
 

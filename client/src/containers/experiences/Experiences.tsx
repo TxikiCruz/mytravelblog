@@ -148,10 +148,7 @@ const Experiences = ({ user }) => {
                   <span>{ele.user}</span>
                 </div>
                 <div className="tCol thumb">
-                  {ele.image !== '' ?
-                    <img src={`${URL}/static/images/${ele.image}`} alt={ele.title} />
-                    : <img src={thumb} alt={ele.title} />
-                  }
+                  <img src={ele.image ? `${URL}/static/images/${ele.image}` : thumb} alt={ele.title} />
                 </div>
                 <div className="tCol">
                   <span>{ele.category}</span>
@@ -215,7 +212,7 @@ const Experiences = ({ user }) => {
         }
       </div>
       
-      <Msgbox message={message.body} classname={message.classname} />
+      <Msgbox body={message.body} classname={message.classname} />
     </form>
 
     {

@@ -8,7 +8,7 @@ import { store } from './store/store'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter forceRefresh={true}>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>

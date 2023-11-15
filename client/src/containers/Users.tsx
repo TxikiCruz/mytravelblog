@@ -154,7 +154,7 @@ const Users = () => {
       }
     </div>
 
-    <Msgbox message={message.body} classname={message.classname} />
+    <Msgbox body={message.body} classname={message.classname} />
   </div>
 }
 

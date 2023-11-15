@@ -13,10 +13,9 @@ class categoriesController {
   }
 
   async addNewCategory(req, res) {
-    let { name } = req.body;
-
+    let params = req.body;
     try {
-      const done = await categories.create({name});
+      const done = await categories.create({name: params.name, continent: params.continent});
       res.send(done)
     }
     catch (error) {
@@ -27,7 +26,7 @@ class categoriesController {
 
   async deleteCategory(req, res) {
     let { name } = req.body;  
-    
+
     try {
       const removed = await categories.deleteOne({ name: name });
       res.send({ removed });
@@ -39,11 +38,11 @@ class categoriesController {
   }
 
   async updateCategory(req, res) {
-    let { name, newName } = req.body;  
+    let params = req.body; 
     
     try {
       const updated = await categories.updateOne(
-        { name }, { name: newName }
+        { _id: params._id }, { name: params.name, continent: params.continent }
       );
       res.send({ updated });
     }

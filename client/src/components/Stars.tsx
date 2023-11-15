@@ -43,7 +43,7 @@ const Stars = ({ exp, user }) => {
       })
     }
 
-    <Msgbox message={message.body} classname={message.classname} />
+    <Msgbox body={message.body} classname={message.classname} />
   </div>
 }
 

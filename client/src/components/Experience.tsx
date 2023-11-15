@@ -155,7 +155,7 @@ const Experience = ({ user }) => {
             <Stars exp={exp} user={user} />
           </div>
 
-          <Msgbox message={message.body} classname={message.classname} />
+          <Msgbox body={message.body} classname={message.classname} />
         </div>
       </div>
 

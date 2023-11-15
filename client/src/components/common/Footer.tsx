@@ -2,9 +2,10 @@ import SearchByContinent from '../search/SearchByContinent'
 
 const Footer = () => {
   return <>
-    <aside className="subFooter">
+    <aside className="sub_footer">
       <SearchByContinent />
     </aside>
+
     <footer className="footer">
       <div className="container">
         <div className="flex">

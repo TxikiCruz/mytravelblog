@@ -62,7 +62,7 @@ const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }) => {
     </form>
   }
 
-  <Msgbox message={message.body} classname={message.classname} />
+  <Msgbox body={message.body} classname={message.classname} />
 </div>
 }
 

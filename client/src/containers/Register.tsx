@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { URL } from '../config'
 import axios from 'axios'
+import { URL } from '../config'
+import Msgbox from '../components/common/Msgbox'
 
 const Register = () => {
   const [form, setValues] = useState({
@@ -8,10 +9,12 @@ const Register = () => {
     password: '',
     password2: ''
   })
-  const [message, setMessage] = useState('')
+
+  const [message, setMessage] = useState({body: '', classname: ''})
   const handleChange = e => {
     setValues({ ...form, [e.target.name]: e.target.value })
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -20,8 +23,7 @@ const Register = () => {
         password: form.password,
         password2: form.password2
       })
-      setMessage(response.data.message)
-      console.log(response)
+      setMessage({ body: response.data.message, classname: 'msg_ok' })
     }
     catch (error) {
       console.log(error)
@@ -29,22 +31,22 @@ const Register = () => {
 
   }
   return <div className="page login">
-          <h2 className="title">Register</h2>
+    <h2 className="title">Register</h2>
 
-          <form 
-              onSubmit={handleSubmit}
-              onChange={handleChange}
-              className='form'
-            >
-              <input name="email" className="form_control" placeholder="Write your email" />
-              <input name="password" className="form_control" placeholder="Write your password" />
-              <input name="password2" className="form_control" placeholder="Confirm your password" />
-              <button className="btn">register</button>
+    <form
+      onSubmit={handleSubmit}
+      onChange={handleChange}
+      className='form'
+    >
+      <input type="text" name="email" className="form_control" placeholder="Write your email" />
+      <input type="password" name="password" className="form_control" placeholder="Write your password" />
+      <input type="password" name="password2" className="form_control" placeholder="Confirm your password" />
+      <button className="btn">register</button>
+    </form>
 
-              <div className='message'><p className="msg">{message}</p></div>
-            </form>
-        </div>
-  
+    <Msgbox body={message.body} classname={message.classname} />
+  </div>
+
 }
 
 export default Register

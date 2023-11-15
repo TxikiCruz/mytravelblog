@@ -4,12 +4,10 @@ import { sortBy } from 'lodash'
 import { MdDelete, MdEdit, MdClose, MdCheckCircleOutline } from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../hooks/useDispatchSelector'
 import { Cat, fetchCats, catsSelector } from '../store/slice-categories'
-//import { useSelector, useDispatch } from 'react-redux'
-//import { getCats, getCatsStatus, getCatsError, fetchCats } from '../store/slice-categories'
 import { URL } from '../config'
 import SelectContinent from '../components/common/SelectContinent'
 import Pagination from '../components/common/Pagination'
-import Msgbox from '../components/common/Msgbox'
+import Msgbox, { ParamsMsgBox } from '../components/common/Msgbox'
 
 const Categories = () => {
   // fetch Categories
@@ -32,7 +30,7 @@ const Categories = () => {
   useEffect(() => {
     handleFetchCats()
   }, [])
-  
+
   // pagination
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
@@ -40,38 +38,26 @@ const Categories = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const sortedCats = sortBy(cats, [cat => cat.name.toLowerCase()])
   const currentCats = sortedCats.slice(indexOfFirstItem, indexOfLastItem)
-  const paginate = (i: number) => setCurrentPage(i)
+  const paginate = (i: number) => {
+    setCurrentPage(i)
+    window.scrollTo(0, 0)
+  }
 
   // handle form events
-  const [valueInputAdd, setValueInputAdd] = useState('')
-  const [valueInputUpdate, setValueInputUpdate] = useState('')
-  const [message, setMessage] = useState({ body: '', classname: '' })
+  const [valuesInputAdd, setValuesInputAdd] = useState({})
+  const [valuesInputUpdate, setValuesInputUpdate] = useState({})
+  const [message, setMessage] = useState<ParamsMsgBox>({body: '', classname: ''})
   const [updateActive, setUpdateActive] = useState<string | null>(null)
   const reg = /^[A-Za-z\s]+$/
 
-  //const dispatch = useDispatch()
-  //const cats = useSelector(getCats)
-  //const catsStatus = useSelector(getCatsStatus)
-  //const error = useSelector(getCatsError)
-
-  // useEffect(() => {
-  //   if (catsStatus === 'idle') {
-  //     dispatch(fetchCats())
-  //   }
-
-  //   if (error) {
-  //     console.log(error)
-  //   }
-  // }, [catsStatus, dispatch])
-
   const handleChangeInputAdd = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.currentTarget
-    if (target) setValueInputAdd(target.value)
+    if (target) setValuesInputAdd({ ...valuesInputAdd, [target.name]: target.value })
   }
 
   const handleChangeInputUpdate = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.currentTarget
-    if (target) setValueInputUpdate(target.value)
+    if (target) setValuesInputUpdate({ ...valuesInputUpdate, [target.name]: target.value })
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -79,21 +65,19 @@ const Categories = () => {
 
     try {
       let url = `${URL}/admin/categories/add`
-      let result = cats.findIndex(item => item.name === valueInputAdd)
-
+      let result = cats.findIndex(item => item.name === valuesInputAdd.name)
       if (result === -1) {
-        if (reg.exec(valueInputAdd)) {
-          await axios.post(url, { name: valueInputAdd })
+        if (reg.exec(valuesInputAdd.name)) {
+          await axios.post(url, { name: valuesInputAdd.name, continent: valuesInputAdd.continent })
           handleFetchCats()
-          setMessage({ body: `Category ${valueInputAdd} added!`, classname: 'msg_ok' })
+          setMessage({ body: `Category ${valuesInputAdd.name} added!`, classname: 'msg_ok' })
         } else {
           setMessage({ body: 'The category has to be a text', classname: 'msg_error' })
         }
       } else {
         setMessage({ body: 'The category already exists', classname: 'msg_error' })
       }
-
-      setValueInputAdd('')
+      //setValuesInputAdd({})
     } catch (error) {
       console.log(error)
     }
@@ -113,21 +97,27 @@ const Categories = () => {
 
   const onClickShowUpdate = async (idx: string) => {
     setUpdateActive(idx)
+    let idCat = cats.findIndex(e => e._id === idx)
+    setValuesInputUpdate({ name: cats[idCat].name, continent: cats[idCat].continent })
   }
 
   const onClickCloseUpdate = async () => {
     setUpdateActive(null)
   }
 
-  const onClickUpdate = async (ele: Cat) => {
+  const onClickUpdate = async (idx: string) => {
     try {
       let url = `${URL}/admin/categories/update`
-      if (reg.exec(valueInputUpdate)) {
-        await axios.post(url, { name: ele.name, newName: valueInputUpdate })
-        handleFetchCats()  
+      if (reg.exec(valuesInputUpdate.name)) {
+        await axios.post(url, {
+          _id: idx,
+          name: valuesInputUpdate.name,
+          continent: valuesInputUpdate.continent
+        })
+        handleFetchCats()
         setUpdateActive(null)
-        setValueInputUpdate('')
-        setMessage({ body: `Category ${ele.name} updated to ${valueInputUpdate}!`, classname: 'msg_ok' })
+        //setValuesInputUpdate('')
+        setMessage({ body: `Category updated!`, classname: 'msg_ok' })
       } else {
         setMessage({ body: `Write a correct category`, classname: 'msg_error' })
       }
@@ -139,30 +129,28 @@ const Categories = () => {
   return <div className="content cats">
     <div className="content_top">
       <h2 className="content_top_title">Categories</h2>
-    </div>
 
-    <div>
       <form className="form" onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          className="form_control" 
-          placeholder="Write your category" 
-          value={valueInputAdd}
-          onChange={handleChangeInputAdd} 
+        <input
+          type="text"
+          name="name"
+          className="form_control"
+          placeholder="Write your category"
+          onChange={handleChangeInputAdd}
         />
 
-        <SelectContinent />
-        
+        <SelectContinent handleChange={handleChangeInputAdd} />
+
         <button className="btn btn_admin">Add new category</button>
       </form>
     </div>
 
     <div className="table">
       <div className="tRow tHead">
-        <div className="tCol w30">
+        <div className="tCol w40">
           <span><strong>Category</strong></span>
         </div>
-        <div className="tCol w40">
+        <div className="tCol w30">
           <span><strong>Continent</strong></span>
         </div>
         <div className="tCol w30 right">
@@ -182,53 +170,48 @@ const Categories = () => {
             <div className="tCol w40">
               <span>{ele.continent}</span>
               {updateActive === ele._id ?
-                <input 
-                  type="text" 
-                  className="form_control" 
-                  placeholder="Write the new category" 
-                  value={valueInputUpdate}
-                  onChange={handleChangeInputUpdate} 
-                />
+                <SelectContinent handleChange={handleChangeInputUpdate} selected={ele.continent} />
                 : null}
             </div>
             <div className="tCol w30">
               <div className="icons">
                 {updateActive !== ele._id ?
-                  <button 
+                  <button
                     type="button"
-                    className="btn_action" 
-                    onClick={() => onClickShowUpdate(ele._id)} 
+                    className="btn_action"
+                    onClick={() => onClickShowUpdate(ele._id)}
                     title="Edit"
                   >
                     <MdEdit />
                   </button>
                   : null}
+
                 {updateActive === ele._id ?
                   <>
-                    <button 
-                      type="button" 
-                      className="btn_action green" 
-                      onClick={() => onClickUpdate(ele)} 
+                    <button
+                      type="button"
+                      className="btn_action green"
+                      onClick={() => onClickUpdate(ele._id)}
                       title="Save"
                     >
                       <MdCheckCircleOutline />
                     </button>
-                    <button 
-                      type="button" 
-                      className="btn_action" 
-                      onClick={onClickCloseUpdate} 
+                    <button
+                      type="button"
+                      className="btn_action"
+                      onClick={onClickCloseUpdate}
                       title="Close"
                     >
                       <MdClose />
                     </button>
                   </> : null}
 
-                  <button 
-                    type="button" 
-                    className="btn_action" 
-                    onClick={() => onClickDelete(ele)} 
-                    title="Remove"
-                  >
+                <button
+                  type="button"
+                  className="btn_action"
+                  onClick={() => onClickDelete(ele)}
+                  title="Remove"
+                >
                   <MdDelete />
                 </button>
               </div>
@@ -249,7 +232,7 @@ const Categories = () => {
       />
     }
 
-    <Msgbox message={message.body} classname={message.classname} />
+    <Msgbox body={message.body} classname={message.classname} />
   </div>
 }
 

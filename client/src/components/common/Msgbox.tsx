@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react"
 
-type ParamsMsgBox = {
-  message: string
+export type ParamsMsgBox = {
+  body: string
   classname: string
 }
 
-const Msgbox = ({ message, classname }: ParamsMsgBox) => {
+const Msgbox = ({ body, classname }: ParamsMsgBox) => {
   const [msg, setMsg] = useState('')
 
   useEffect(() => {
-    setMsg(message)
+    setMsg(body)
 
     const timer = setTimeout(() => {
       setMsg('')
     }, 3000)
     return () => clearTimeout(timer)
-  }, [message])
+  }, [body])
 
   return <div className={`modal ${classname && msg && 'on'}`}>
     <div className="modal_content">

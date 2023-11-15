@@ -1,45 +1,71 @@
-
+// Footer styles
 .footer {
   height: 6rem;
   background-color: $color3;
-  color:$color4;
-  .flex{
+  color: $color4;
+
+  .flex {
     justify-content: center;
   }
+
   p {
     font-size: 1.2rem;
     padding-top: 2rem;
   }
 }
 
-.subFooter {
-  min-height: 30rem;
+.sub_footer {
   background-color: $color1;
-  margin-top:4rem;
+
+  .continents {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
   ul {
+    max-width: 100rem;
+    min-height: 30rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
+
     >li {
       width: 100%;
       position: relative;
       text-align: center;
-      @media (min-width: $screenSm){
+
+      @media (min-width: $screenSm) {
         width: 20%;
       }
-      img.sa{
-        margin-top: -5rem;
+
+      img {
+        &.sa {
+          margin-top: -5rem;
+        }
       }
+
       .link {
         position: absolute;
-        top:50%;
-        left:50%;
+        top: 50%;
+        left: 50%;
         z-index: 20;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         font-size: 1.6rem;
-        color:$color4;
+        color: $color4;
+        transition: all 0.2s ease-in-out;
         cursor: pointer;
+
+        &.na {
+          top: 30%;
+        }
+
+        &.sa {
+          top: 70%;
+        }
+
         &:hover {
           color: #fff;
         }
