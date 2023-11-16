@@ -17,13 +17,30 @@ const Register = ({ login, logout }) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
-  const loginRegister = () => {
+  const loginRegister = async () => {
+    try {
+      const response = await axios.post(`${URL}/users/login`, {
+        email: values.email,
+        password: values.password
+      })
+      setMessage({ body: response.data.message, classname: 'msg_ok' })
 
+      if (response.data.ok) {
+        setTimeout(() => {
+          login(response.data.token, response.data.role)
+          navigate('/admin/')
+        }, 2000)
+      }
+
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    //logout()
+    logout()
     try {
       const response = await axios.post(`${URL}/users/register`, {
         email: values.email,
@@ -31,7 +48,7 @@ const Register = ({ login, logout }) => {
         password2: values.password2
       })
       console.log(response)
-      navigate('/admin/')
+      loginRegister()
       setMessage({ body: response.data.message, classname: 'msg_ok' })
     }
     catch (error) {

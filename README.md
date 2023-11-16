@@ -25,6 +25,7 @@
 ## TODO tasks
   - Resolver errores pendientes Typescript
   - Añadir tests con Jest
+  - Responsive design
   - Mejorar Login / Register
   - Register si estás logueado debe llevar al nuevo usuario
   - Role admin/author
@@ -53,3 +54,5 @@
   - Añadir Error al intentar borrar una categoría si tiene alguna experiencia
   - Paginación dinámica
   - Añadir algo de IA con alguna api
+  - Definir nomenclatura tipo BEM para css
+  - Definir guía de estilos
