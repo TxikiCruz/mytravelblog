@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# UI-FRONT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Front-End architecture 
 
-## Available Scripts
+## Env Setup
+  - node: `16.17.0`
+  - npm: `9.8.0`
 
-In the project directory, you can run:
+## Commands
+  - `npm install` to install all needed packages (run it in both client and server folders)
+  - `npm run rundev` - Will start the dev mode and open a server `localhost:5173` (run it in client folder)
+  - `npm run build` - Will compile and deliver the front-end code to dist folder (not tested yet)
 
-### `npm start`
+## Code pattern
+  - React
+  - Redux
+  - Typescript
+  - Lodash
+  - Vite
+  - Sass
+  - Node
+  - Express
+  - Mongoose
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## TODO tasks
+  - Resolver errores pendientes Typescript
+  - Añadir tests con Jest
+  - Mejorar Login / Register
+  - Register si estás logueado debe llevar al nuevo usuario
+  - Role admin/author
+  - Arreglar formulario Contacto (Nodemailer)
+  - Revisar buscador
+  - Mensajes popup solo aparece la primera acción
+  - Al arrancar el proyecto no se cargan los datos si no recargas el browser
+  - Mejorar diseño
+  - Revisar opciones de Redux
+  - Copyright?
+  - Meter más contenido
+  - Añadir opción subir múltiples imágenes en Admin/images con Multer
+  - ImageUpload no funciona añadiendo un título a la imagen
+  - Añadir minijuego Phaser
+  - Añadir alguna gráfica
+  - Añadir mapa interactivo, por ejemplo con los países más visitados (probar Leaflet)
+  - Probar Zustand
+  - Añadir vídeo a Carousel
+  - Filtrar / Ordenar experiencias en página Experiences
+  - Añadir Suspense, lazy en cargas grandes
+  - Drag and drop imágenes
+  - Sort by tables admin
+  - Select all con checkboxes en admin
+  - Google analytics
+  - Añadir audio con controles
+  - Añadir Error al intentar borrar una categoría si tiene alguna experiencia
+  - Paginación dinámica
+  - Añadir algo de IA con alguna api
