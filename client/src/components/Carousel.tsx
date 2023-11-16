@@ -10,27 +10,26 @@ const Carousel = () => {
   const [slideStop, setSlideStop] = useState<boolean>(true)
   const [objCarouselImage, setObjCarouselImage] = useState<CarouselImage>({})
   const numSlides = slideImages.length
-  const time = 5000
 
   type CarouselImage = {
+    readonly _id?: string,
     filename?: string,
     pathname?: string,
     featured?: boolean,
-    title?: string,
-    readonly _id?: string
+    title?: string
+  }
+
+  const options = {
+    autoplay: false,
+    time: 5000
   }
 
   useEffect(() => {
     const fetchImages = async () => {
       const res = await axios.get(`${URL}/images/fetch_images`)
       let data = res.data.images
-      let temp: any[] = []
-      for (let ele of data) {
-        if (ele.featured) {
-          temp.push(ele)
-        }
-      }
-      setSlideImages(temp)
+      const imagesFeatured = data.filter(item => item.featured)
+      setSlideImages(imagesFeatured)
     }
 
     fetchImages()
@@ -50,10 +49,10 @@ const Carousel = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!slideStop) {
+      if (slideStop && options.autoplay) {
         autoPlayAndClickNext()
       }
-    }, time)
+    }, options.time)
     return () => clearInterval(interval)
   }, [slideIndex])
 

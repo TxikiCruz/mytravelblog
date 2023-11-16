@@ -1,14 +1,19 @@
 const nodemailer = require('nodemailer')
+
 // selecting mail service and authorazing with our credentials
 const transport = nodemailer.createTransport({
 	// you need to enable the less secure option on your gmail account
-	// https://myaccount.google.com/lesssecureapps?pli=1
-	service: 'Hotmail',
+	service: 'gmail',
 	auth: {
+		type: 'OAuth2',
 		user: process.env.NODEMAILER_EMAIL,
 		pass: process.env.NODEMAILER_PASSWORD,
+		//clientId: process.env.OAUTH_CLIENTID,
+		//clientSecret: process.env.OAUTH_CLIENT_SECRET,
+		//refreshToken: process.env.OAUTH_REFRESH_TOKEN
 	}
-});
+})
+
 const send_email = async (req, res) => {
 	const { name, email, subject, message } = req.body
 	const default_subject = 'This is a default subject'
@@ -19,7 +24,8 @@ const send_email = async (req, res) => {
 	}
 	try {
 		const response = await transport.sendMail(mailOptions)
-		console.log('=========================================> Email sent !!')
+		console.log(response)
+		console.log('Email sent!')
 		return res.json({ on: true, message: 'email sent' })
 	}
 	catch (err) {

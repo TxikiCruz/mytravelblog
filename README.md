@@ -44,6 +44,7 @@
   - Añadir mapa interactivo, por ejemplo con los países más visitados (probar Leaflet)
   - Probar Zustand
   - Añadir vídeo a Carousel
+  - Añadir swipe a Carousel
   - Filtrar / Ordenar experiencias en página Experiences
   - Añadir Suspense, lazy en cargas grandes
   - Drag and drop imágenes
@@ -56,3 +57,4 @@
   - Añadir algo de IA con alguna api
   - Definir nomenclatura tipo BEM para css
   - Definir guía de estilos
+  - Añadir nombre a usuarios registrados

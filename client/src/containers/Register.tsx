@@ -47,7 +47,6 @@ const Register = ({ login, logout }) => {
         password: values.password,
         password2: values.password2
       })
-      console.log(response)
       loginRegister()
       setMessage({ body: response.data.message, classname: 'msg_ok' })
     }

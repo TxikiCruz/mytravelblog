@@ -79,90 +79,92 @@ const Images = () => {
       <ImageUpload setSelectedFilename={setSelectedFilename} fetch_images={fetch_images} isImageWithTitle={true} />
     </div>
 
-    <div className="table">
-      <div className="tGroup tHead">
-        <div className="tRow">
-          <div className="tCol center"><span><strong>Featured</strong></span></div>
-          <div className="tCol"><span><strong>Image</strong></span></div>
-          <div className="tCol"><span><strong>Title</strong></span></div>
-          <div className="tCol right"><span><strong>Action</strong></span></div>
+    <div className="table_scroll">
+      <div className="table">
+        <div className="tGroup tHead">
+          <div className="tRow">
+            <div className="tCol center"><span><strong>Featured</strong></span></div>
+            <div className="tCol"><span><strong>Image</strong></span></div>
+            <div className="tCol"><span><strong>Title</strong></span></div>
+            <div className="tCol right"><span><strong>Action</strong></span></div>
+          </div>
         </div>
-      </div>
 
-      {currentImages.map((item) => {
+        {currentImages.map((item) => {
 
-        return (
-          <div className="tGroup" key={item._id}>
-            <div className="tRow">
-              <div className="tCol center">
-                <div className="switch">
-                  <input
-                    type="checkbox"
-                    id={`switch-${item._id}`}
-                    className="switch_checkbox"
-                    defaultChecked={item.featured}
-                    onChange={(e) => handleChangeSwitch(e, item._id)}
-                  />
-                  <label htmlFor={`switch-${item._id}`} className="switch_label"></label>
+          return (
+            <div className="tGroup" key={item._id}>
+              <div className="tRow">
+                <div className="tCol center">
+                  <div className="switch">
+                    <input
+                      type="checkbox"
+                      id={`switch-${item._id}`}
+                      className="switch_checkbox"
+                      defaultChecked={item.featured}
+                      onChange={(e) => handleChangeSwitch(e, item._id)}
+                    />
+                    <label htmlFor={`switch-${item._id}`} className="switch_label"></label>
+                  </div>
                 </div>
-              </div>
-              <div className="tCol">
-                <img
-                  className="image"
-                  src={`${URL}/static/images/${item.filename}`}
-                  alt={item.title}
-                />
-              </div>
-              <div className="tCol">
-                <span>{item.title}</span>
-              </div>
+                <div className="tCol">
+                  <img
+                    className="image"
+                    src={`${URL}/static/images/${item.filename}`}
+                    alt={item.title}
+                  />
+                </div>
+                <div className="tCol">
+                  <span>{item.title}</span>
+                </div>
 
-              <div className="tCol">
-                <div className="icons">
-                  {updateActive !== item._id ?
-                    <button
-                      type="button"
-                      className="btn_action"
-                      onClick={() => onClickShowUpdate(item._id)}
-                      title="Edit"
-                    >
-                      <MdEdit />
-                    </button>
-                    : null}
-                  {updateActive === item._id ?
-                    <>
-                      <button
-                        type="button"
-                        className="btn_action green"
-                        onClick={() => onClickUpdate(item)}
-                        title="Save"
-                      >
-                        <MdCheckCircleOutline />
-                      </button>
+                <div className="tCol">
+                  <div className="icons">
+                    {updateActive !== item._id ?
                       <button
                         type="button"
                         className="btn_action"
-                        onClick={onClickCloseUpdate}
-                        title="Close"
+                        onClick={() => onClickShowUpdate(item._id)}
+                        title="Edit"
                       >
-                        <MdClose />
+                        <MdEdit />
                       </button>
-                    </> : null}
+                      : null}
+                    {updateActive === item._id ?
+                      <>
+                        <button
+                          type="button"
+                          className="btn_action green"
+                          onClick={() => onClickUpdate(item)}
+                          title="Save"
+                        >
+                          <MdCheckCircleOutline />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn_action"
+                          onClick={onClickCloseUpdate}
+                          title="Close"
+                        >
+                          <MdClose />
+                        </button>
+                      </> : null}
 
-                  <button
-                    className="btn_action"
-                    onClick={() => onClickDelete(item._id, item.filename)}
-                  >
-                    <MdDelete />
-                  </button>
+                    <button
+                      className="btn_action"
+                      onClick={() => onClickDelete(item._id, item.filename)}
+                    >
+                      <MdDelete />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
 
-      <Msgbox body={message.body} classname={message.classname} />
+        <Msgbox body={message.body} classname={message.classname} />
+      </div>
     </div>
 
     {

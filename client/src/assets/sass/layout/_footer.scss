@@ -59,11 +59,18 @@
         cursor: pointer;
 
         &.na {
-          top: 30%;
+          left: 25%;
+          @media (min-width: $screenSm) {
+            top: 30%;
+          }
         }
 
         &.sa {
-          top: 70%;
+          left: auto;
+          right: 0;
+          @media (min-width: $screenSm) {
+            top: 70%;
+          }
         }
 
         &:hover {

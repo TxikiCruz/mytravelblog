@@ -101,72 +101,74 @@ const Scores = () => {
       <h2 className="content_top_title">Scores</h2>
     </div>
 
-    <div className="table">
-      <div className="tGroup tHead">
-        <div className="tRow">
-          <div className="tCol w40"><span><strong>Experience</strong></span></div>
-          <div className="tCol w30"><span><strong>User</strong></span></div>
-          <div className="tCol w20 center"><span><strong>Score</strong></span></div>
-          <div className="tCol w10 right"><span><strong>Action</strong></span></div>
+    <div className="table_scroll">
+      <div className="table">
+        <div className="tGroup tHead">
+          <div className="tRow">
+            <div className="tCol w40"><span><strong>Experience</strong></span></div>
+            <div className="tCol w30"><span><strong>User</strong></span></div>
+            <div className="tCol w20 center"><span><strong>Score</strong></span></div>
+            <div className="tCol w10 right"><span><strong>Action</strong></span></div>
+          </div>
         </div>
-      </div>
 
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
+        {loading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
 
-      {
-        currentScores.map((ele, i) => {
-          return <div className="tGroup" key={ele._id}>
-            <div className="tRow">
-              <div className="tCol">
-                <span>{ele.experience}</span>
-              </div>
-              <div className="tCol">
-                <span>{ele.user}</span>
-              </div>
-              <div className="tCol center">
-                <span>{ele.score}</span>
-              </div>
-              <div className="tCol center">
-                <div className="icons">
-                  {updateActive === null ?
-                    <button type="button" className="btn_action" onClick={(e) => onClickShowUpdate(e, ele._id)}>
-                      <MdEdit />
+        {
+          currentScores.map((ele, i) => {
+            return <div className="tGroup" key={ele._id}>
+              <div className="tRow">
+                <div className="tCol">
+                  <span>{ele.experience}</span>
+                </div>
+                <div className="tCol">
+                  <span>{ele.user}</span>
+                </div>
+                <div className="tCol center">
+                  <span>{ele.score}</span>
+                </div>
+                <div className="tCol center">
+                  <div className="icons">
+                    {updateActive === null ?
+                      <button type="button" className="btn_action" onClick={(e) => onClickShowUpdate(e, ele._id)}>
+                        <MdEdit />
+                      </button>
+                      : null}
+                    <button type="button" className="btn_action" onClick={() => onClickDelete(ele._id)}>
+                      <MdDelete />
                     </button>
-                    : null}
-                  <button type="button" className="btn_action" onClick={() => onClickDelete(ele._id)}>
-                    <MdDelete />
-                  </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {updateActive === ele._id ?
-              <>
-                <div className="tRow sup">
-                  <div className="tCol">
-                  </div>
-                  <div className="tCol">
-                  </div>
-                  <div className="tCol">
-                    <input type="text" name="score" className="form_control" placeholder="new score" onChange={handleChangeNew} defaultValue={ele.score} />
-                  </div>
-                  <div className="tCol">
-                    <div className="icons">
-                      <button type="button" className="btn_action" onClick={() => onClickUpdate(ele._id)}>
-                        <MdCheckCircle />
-                      </button>
-                      <button type="button" className="btn_action" onClick={onClickClose}>
-                        <MdClose />
-                      </button>
+              {updateActive === ele._id ?
+                <>
+                  <div className="tRow sup">
+                    <div className="tCol">
+                    </div>
+                    <div className="tCol">
+                    </div>
+                    <div className="tCol">
+                      <input type="text" name="score" className="form_control" placeholder="new score" onChange={handleChangeNew} defaultValue={ele.score} />
+                    </div>
+                    <div className="tCol">
+                      <div className="icons">
+                        <button type="button" className="btn_action" onClick={() => onClickUpdate(ele._id)}>
+                          <MdCheckCircle />
+                        </button>
+                        <button type="button" className="btn_action" onClick={onClickClose}>
+                          <MdClose />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </>
-              : null}
-          </div>
-        })
-      }
+                </>
+                : null}
+            </div>
+          })
+        }
+      </div>
     </div>
 
     {

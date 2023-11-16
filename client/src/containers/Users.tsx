@@ -90,68 +90,70 @@ const Users = () => {
       <p className="content_top_subtitle">*To create a new user go to <NavLink to={"/register"}>Register</NavLink> page</p>
     </div>
 
-    <div className="table">
-      <div className="tGroup tHead">
-        <div className="tRow">
-          <div className="tCol w40"><span><strong>Email</strong></span></div>
-          <div className="tCol w30 scroll"><span><strong>Password</strong></span></div>
-          <div className="tCol w20 center"><span><strong>Role</strong></span></div>
-          <div className="tCol w10 right"><span><strong>Action</strong></span></div>
+    <div className="table_scroll">
+      <div className="table">
+        <div className="tGroup tHead">
+          <div className="tRow">
+            <div className="tCol w40"><span><strong>Email</strong></span></div>
+            <div className="tCol w30 scroll"><span><strong>Password</strong></span></div>
+            <div className="tCol w20 center"><span><strong>Role</strong></span></div>
+            <div className="tCol w10 right"><span><strong>Action</strong></span></div>
+          </div>
         </div>
-      </div>
-      {
-        users.map((ele, i) => {
-          return <div className="tGroup" key={ele._id}>
-            <div className="tRow">
-              <div className="tCol">
-                <span>{ele.email}</span>
-              </div>
-              <div className="tCol scroll">
-                <span>{ele.password}</span>
-              </div>
-              <div className="tCol center">
-                {updateActive !== ele._id ?
-                  <span>{ele.role}</span>
-                  :
-                  <select 
-                    name="role"
-                    className="form_control" 
-                    defaultValue={ele.role} 
-                    onChange={handleChangeNew}
-                  >
-                    {typesUser.map(ele => {
-                      return <option key={ele.type} value={ele.type}>{ele.type}</option>
-                    })}
-                  </select>
-                }
-              </div>
-              <div className="tCol">
-                <div className="icons">
-                  {!updateActive ?
-                    <>
-                      <button className="btn_action" onClick={(e) => onClickShowUpdate(e, ele._id)}>
-                        <MdEdit />
-                      </button>
-                      <button className="btn_action" onClick={() => onClickDelete(ele._id)}>
-                        <MdDelete />
-                      </button>
-                    </>
-                    : 
-                    <>
-                      <button className="btn_action green" onClick={() => onClickUpdate(ele._id)}>
-                        <MdCheckCircle />
-                      </button>
-                      <button className="btn_action" onClick={onClickClose}>
-                        <MdClose />
-                      </button>
-                    </>
+        {
+          users.map((ele, i) => {
+            return <div className="tGroup" key={ele._id}>
+              <div className="tRow">
+                <div className="tCol">
+                  <span>{ele.email}</span>
+                </div>
+                <div className="tCol scroll">
+                  <span>{ele.password}</span>
+                </div>
+                <div className="tCol center">
+                  {updateActive !== ele._id ?
+                    <span>{ele.role}</span>
+                    :
+                    <select 
+                      name="role"
+                      className="form_control" 
+                      defaultValue={ele.role} 
+                      onChange={handleChangeNew}
+                    >
+                      {typesUser.map(ele => {
+                        return <option key={ele.type} value={ele.type}>{ele.type}</option>
+                      })}
+                    </select>
                   }
+                </div>
+                <div className="tCol">
+                  <div className="icons">
+                    {!updateActive ?
+                      <>
+                        <button className="btn_action" onClick={(e) => onClickShowUpdate(e, ele._id)}>
+                          <MdEdit />
+                        </button>
+                        <button className="btn_action" onClick={() => onClickDelete(ele._id)}>
+                          <MdDelete />
+                        </button>
+                      </>
+                      : 
+                      <>
+                        <button className="btn_action green" onClick={() => onClickUpdate(ele._id)}>
+                          <MdCheckCircle />
+                        </button>
+                        <button className="btn_action" onClick={onClickClose}>
+                          <MdClose />
+                        </button>
+                      </>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        })
-      }
+          })
+        }
+      </div>
     </div>
 
     <Msgbox body={message.body} classname={message.classname} />

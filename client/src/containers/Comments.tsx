@@ -55,41 +55,43 @@ const Comments = () => {
       <h2 className="content_top_title">Comments</h2>
     </div>
 
-    <div className="table">
-      <div className="tRow tHead">
-        <div className="tCol w15"><span><strong>User</strong></span></div>
-        <div className="tCol w10"><span><strong>Date</strong></span></div>
-        <div className="tCol w25"><span><strong>Experience</strong></span></div>
-        <div className="tCol w30"><span><strong>Content</strong></span></div>
-        <div className="tCol w10 center"><span><strong>Action</strong></span></div>
-      </div>
-      {
-        currentComments.map((ele, i) => {
-          return <div className="tGroup" key={i}>
-            <div className="tRow">
-              <div className="tCol">
-                <span>{ele.user || 'Not registered'}</span>
-              </div>
-              <div className="tCol">
-                <span><Moment format="YYYY/MM/DD">{ele.date}</Moment></span>
-              </div>
-              <div className="tCol">
-                <span>{ele.experience}</span>
-              </div>
-              <div className="tCol">
-                <span>{ele.content}</span>
-              </div>
-              <div className="tCol center">
-                <div className="icons">
-                  <button className="btn_action" onClick={() => onClickDelete(ele._id)}>
-                    <MdDelete />
-                  </button>
+    <div className="table_scroll">
+      <div className="table">
+        <div className="tRow tHead">
+          <div className="tCol w15"><span><strong>User</strong></span></div>
+          <div className="tCol w10"><span><strong>Date</strong></span></div>
+          <div className="tCol w25"><span><strong>Experience</strong></span></div>
+          <div className="tCol w30"><span><strong>Content</strong></span></div>
+          <div className="tCol w10 center"><span><strong>Action</strong></span></div>
+        </div>
+        {
+          currentComments.map((ele, i) => {
+            return <div className="tGroup" key={i}>
+              <div className="tRow">
+                <div className="tCol">
+                  <span>{ele.user || 'Not registered'}</span>
+                </div>
+                <div className="tCol">
+                  <span><Moment format="YYYY/MM/DD">{ele.date}</Moment></span>
+                </div>
+                <div className="tCol">
+                  <span>{ele.experience}</span>
+                </div>
+                <div className="tCol">
+                  <span>{ele.content}</span>
+                </div>
+                <div className="tCol center">
+                  <div className="icons">
+                    <button className="btn_action" onClick={() => onClickDelete(ele._id)}>
+                      <MdDelete />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        })
-      }
+          })
+        }
+      </div>
     </div>
 
     {

@@ -6,11 +6,15 @@
 
   &_title {
     position: absolute;
-    top: 50%;
-    left: 10%;
+    top: 20%;
+    left: 50%;
     z-index: 20;
-    transform: translateY(-50%);
     color: $colorWhite;
+    transform: translate(-50%, -50%);
+
+    @media (min-width: $screenSm) {
+      top: 50%;
+    }
 
     &::before {
       content: '';
@@ -22,21 +26,29 @@
       left: -10%;
       z-index: 5;
       transform: rotate(-4deg);
-      background-color: rgba($color1, 0.5);
+      background-color: rgba($color1, 0.75);
     }
 
-    > * {
+    >* {
       position: relative;
       z-index: 10;
     }
-    
+
     h2 {
-      font-size: 4.8rem;
+      font-size: 2.8rem;
       line-height: 1;
+
+      @media (min-width: $screenSm) {
+        font-size: 4.8rem;
+      }
     }
 
     p {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
+
+      @media (min-width: $screenSm) {
+        font-size: 2.5rem;
+      }
     }
   }
 
@@ -58,18 +70,18 @@
     top: 50%;
     transform: translateY(-50%);
     background-color: $color1;
-    color:#fff;
+    color: #fff;
     border-radius: 50%;
     text-align: center;
     font-size: 2.4rem;
     line-height: 2.4;
     transition: all 0.2s ease-in-out;
 
-    &.prev{
+    &.prev {
       left: 2rem;
     }
 
-    &.next{
+    &.next {
       right: 2rem;
     }
 
@@ -82,7 +94,7 @@
     display: flex;
     position: absolute;
     bottom: 2rem;
-    left:50%;
+    left: 50%;
     transform: translateX(-50%);
     z-index: 200;
   }
@@ -98,7 +110,7 @@
     transition: all 0.2s ease-in-out;
 
     &.active,
-    &:hover{
+    &:hover {
       background-color: $color2;
     }
   }

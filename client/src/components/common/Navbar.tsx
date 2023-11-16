@@ -7,7 +7,8 @@ import useOutsideClick from '../../hooks/useOutsideClick'
 import Msgbox from './Msgbox'
 
 const Navbar = ({ isLoggedIn, logout }) => {
-  const ref = useRef()
+  const refNav = useRef()
+  const refNavAdmin = useRef()
   const [isOpenNav, setIsOpenNav] = useState(false)
   const [isOpenNavAdmin, setIsOpenNavAdmin] = useState(false)
   const [message, setMessage] = useState({body: '', classname: ''})
@@ -45,7 +46,11 @@ const Navbar = ({ isLoggedIn, logout }) => {
     setMessage({ body: 'Logout completed', classname: 'msg_ok' })
   }
 
-  useOutsideClick(ref, () => {
+  useOutsideClick(refNav, () => {
+    isOpenNav && setIsOpenNav(false)
+  })
+
+  useOutsideClick(refNavAdmin, () => {
     isOpenNavAdmin && setIsOpenNavAdmin(false)
   })
 
@@ -64,11 +69,16 @@ const Navbar = ({ isLoggedIn, logout }) => {
     <div className="navbar_right">
       <SearchForm />
 
-      <div ref={ref} className="navbar_login">
+      <div ref={refNavAdmin} className="navbar_login">
         <button className="btn_icon btn_login" onClick={openNavAdmin}>
           {
-            //isMobile ? <MdOutlinePermIdentity /> : 'Sign In'
-            !isLoggedIn ? 'Sign In' : <MdOutlineLogout />
+            !isLoggedIn && !isMobile && 'Sign In'
+          }
+          {
+            !isLoggedIn && isMobile && <MdOutlinePermIdentity />
+          }
+          {
+            isLoggedIn && <MdOutlineLogout />
           }
         </button>
 
@@ -88,9 +98,11 @@ const Navbar = ({ isLoggedIn, logout }) => {
         </ul>
       </div>
 
-      <button className="btn_icon btn_menu" onClick={openNavMain}>
-        <MdMenu />
-      </button>
+      <div ref={refNav}>
+        <button className="btn_icon btn_menu" onClick={openNavMain}>
+          <MdMenu />
+        </button>
+      </div>
     </div>
 
     <Msgbox body={message.body} classname={message.classname} />

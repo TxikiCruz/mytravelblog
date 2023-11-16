@@ -52,6 +52,7 @@ const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }) => {
         className="form_control" 
         placeholder="Write your content" 
         onChange={handleChangeNew} 
+        maxLength={500}
       />
 
       <SelectCategories handleChange={handleChangeNew} />

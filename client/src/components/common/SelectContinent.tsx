@@ -19,7 +19,6 @@ const SelectContinent = ({ handleChange, selected }: PropsSelectContinent) => {
       .get(`https://restcountries.com/v3.1/all?fields=continents`)
       .then((res) => {
         const data = res.data
-        console.log(data)
         const jsonObject = data.map(JSON.stringify)
         const uniqueSet = new Set(jsonObject)
         const uniqueArray = Array.from(uniqueSet).map(JSON.parse)

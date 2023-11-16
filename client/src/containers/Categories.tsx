@@ -145,80 +145,82 @@ const Categories = () => {
       </form>
     </div>
 
-    <div className="table">
-      <div className="tRow tHead">
-        <div className="tCol w40">
-          <span><strong>Category</strong></span>
+    <div className="table_scroll">
+      <div className="table">
+        <div className="tRow tHead">
+          <div className="tCol w40">
+            <span><strong>Category</strong></span>
+          </div>
+          <div className="tCol w30">
+            <span><strong>Continent</strong></span>
+          </div>
+          <div className="tCol w30 right">
+            <span><strong>Actions</strong></span>
+          </div>
         </div>
-        <div className="tCol w30">
-          <span><strong>Continent</strong></span>
-        </div>
-        <div className="tCol w30 right">
-          <span><strong>Actions</strong></span>
-        </div>
-      </div>
 
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
+        {loading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
 
-      {
-        currentCats.length > 0 && currentCats.map((ele) => {
-          return <div className="tRow" key={ele._id}>
-            <div className="tCol w30">
-              <span>{ele.name}</span>
-            </div>
-            <div className="tCol w40">
-              <span>{ele.continent}</span>
-              {updateActive === ele._id ?
-                <SelectContinent handleChange={handleChangeInputUpdate} selected={ele.continent} />
-                : null}
-            </div>
-            <div className="tCol w30">
-              <div className="icons">
-                {updateActive !== ele._id ?
-                  <button
-                    type="button"
-                    className="btn_action"
-                    onClick={() => onClickShowUpdate(ele._id)}
-                    title="Edit"
-                  >
-                    <MdEdit />
-                  </button>
-                  : null}
-
+        {
+          currentCats.length > 0 && currentCats.map((ele) => {
+            return <div className="tRow" key={ele._id}>
+              <div className="tCol w30">
+                <span>{ele.name}</span>
+              </div>
+              <div className="tCol w40">
+                <span>{ele.continent}</span>
                 {updateActive === ele._id ?
-                  <>
-                    <button
-                      type="button"
-                      className="btn_action green"
-                      onClick={() => onClickUpdate(ele._id)}
-                      title="Save"
-                    >
-                      <MdCheckCircleOutline />
-                    </button>
+                  <SelectContinent handleChange={handleChangeInputUpdate} selected={ele.continent} />
+                  : null}
+              </div>
+              <div className="tCol w30">
+                <div className="icons">
+                  {updateActive !== ele._id ?
                     <button
                       type="button"
                       className="btn_action"
-                      onClick={onClickCloseUpdate}
-                      title="Close"
+                      onClick={() => onClickShowUpdate(ele._id)}
+                      title="Edit"
                     >
-                      <MdClose />
+                      <MdEdit />
                     </button>
-                  </> : null}
+                    : null}
 
-                <button
-                  type="button"
-                  className="btn_action"
-                  onClick={() => onClickDelete(ele)}
-                  title="Remove"
-                >
-                  <MdDelete />
-                </button>
+                  {updateActive === ele._id ?
+                    <>
+                      <button
+                        type="button"
+                        className="btn_action green"
+                        onClick={() => onClickUpdate(ele._id)}
+                        title="Save"
+                      >
+                        <MdCheckCircleOutline />
+                      </button>
+                      <button
+                        type="button"
+                        className="btn_action"
+                        onClick={onClickCloseUpdate}
+                        title="Close"
+                      >
+                        <MdClose />
+                      </button>
+                    </> : null}
+
+                  <button
+                    type="button"
+                    className="btn_action"
+                    onClick={() => onClickDelete(ele)}
+                    title="Remove"
+                  >
+                    <MdDelete />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        })
-      }
+          })
+        }
+      </div>
     </div>
 
     {
