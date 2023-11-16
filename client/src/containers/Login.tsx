@@ -6,25 +6,26 @@ import Msgbox from '../components/common/Msgbox'
 
 const Login = ({ login }) => {
   const navigate = useNavigate()
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState({body: '', classname: ''})
 
-  const [form, setValues] = useState({
+  const [values, setValues] = useState({
     email: '',
     password: ''
   })
 
   const handleChange = e => {
-    setValues({ ...form, [e.target.name]: e.target.value })
+    setValues({ ...values, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post(`${URL}/users/login`, {
-        email: form.email,
-        password: form.password
+        email: values.email,
+        password: values.password
       })
       setMessage({ body: response.data.message, classname: 'msg_ok' })
+
       if (response.data.ok) {
         setTimeout(() => {
           login(response.data.token, response.data.role)
@@ -46,8 +47,8 @@ const Login = ({ login }) => {
       onChange={handleChange}
       className="form"
     >
-      <input name="email" className="form_control" placeholder="Write your email" />
-      <input name="password" className="form_control" placeholder="Write your password" />
+      <input type="text" name="email" className="form_control" placeholder="Write your email" />
+      <input type="password" name="password" className="form_control" placeholder="Write your password" />
       <button className="btn">login</button>
     </form>
 

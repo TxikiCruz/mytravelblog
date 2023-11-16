@@ -11,8 +11,8 @@ import Login from './containers/Login'
 import Register from './containers/Register'
 import SearchPage from './components/search/SearchPage'
 import SearchPageContinent from './components/search/SearchPageContinent'
-import Experience from './components/Experience'
-import AllExperiences from './components/AllExperiences'
+import Experience from './components/experiences/Experience'
+import AllExperiences from './components/experiences/AllExperiences'
 import Contact from './components/Contact'
 import Experiences from './containers/experiences/Experiences'
 import Categories from './containers/Categories'
@@ -57,7 +57,7 @@ function App() {
   }
 
   const login = (token, role) => {
-    //console.log('token ===>')
+    //console.log('token ===>'+token)
     setRole(role)
     localStorage.setItem('token', JSON.stringify(token))
     setIsLoggedIn(true)
@@ -122,7 +122,7 @@ function App() {
           <Route path="/experiences" element={<AllExperiences />} />
           <Route path="/contact" element={<Contact />} />
           <Route path='/login' element={<Login login={login} />} />
-          <Route path='/register' element={<Register />} />
+          <Route path='/register' element={<Register login={login} logout={logout} />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/search-by-continent/:search" element={<SearchPageContinent />} />
           <Route path="/experience/:exp" element={<Experience user={user} />} />

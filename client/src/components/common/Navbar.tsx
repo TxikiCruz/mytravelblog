@@ -1,17 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
+import { MdMenu, MdOutlineLogout, MdOutlinePermIdentity } from 'react-icons/md'
 import SearchForm from '../search/SearchForm.js'
 import { useResizer } from '../../hooks/useResizer'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { MdMenu, MdOutlinePermIdentity } from 'react-icons/md'
+import Msgbox from './Msgbox'
 
-const Navbar = ({
-  isLoggedIn,
-  logout
-}) => {
+const Navbar = ({ isLoggedIn, logout }) => {
   const ref = useRef()
   const [isOpenNav, setIsOpenNav] = useState(false)
   const [isOpenNavAdmin, setIsOpenNavAdmin] = useState(false)
+  const [message, setMessage] = useState({body: '', classname: ''})
   const isMobile = useResizer()
   const navigate = useNavigate()
 
@@ -40,12 +39,17 @@ const Navbar = ({
     }
   }
 
+  const onClickLogout = () => {
+    logout()
+    navigate('/')
+    setMessage({ body: 'Logout completed', classname: 'msg_ok' })
+  }
+
   useOutsideClick(ref, () => {
     isOpenNavAdmin && setIsOpenNavAdmin(false)
   })
 
   return <nav className="navbar">
-
     <div className="navbar_center">
       <ul className={`navbar_list main ${isOpenNav ? 'open' : ''}`} onClick={() => setIsOpenNav(false)}>
         <li><NavLink to="/">Home</NavLink></li>
@@ -63,21 +67,22 @@ const Navbar = ({
       <div ref={ref} className="navbar_login">
         <button className="btn_icon btn_login" onClick={openNavAdmin}>
           {
-            isMobile ? <MdOutlinePermIdentity /> : 'Sign In'
+            //isMobile ? <MdOutlinePermIdentity /> : 'Sign In'
+            !isLoggedIn ? 'Sign In' : <MdOutlineLogout />
           }
         </button>
 
-        <ul className={`navbar_list ${isOpenNavAdmin ? 'open' : ''}`} onClick={() => setIsOpenNavAdmin(false)}>
+        <ul 
+          className={`navbar_list ${isOpenNavAdmin ? 'open' : ''}`} 
+          onClick={() => setIsOpenNavAdmin(false)}
+        >
           {
             !isLoggedIn && <li><NavLink to="/login">Login</NavLink></li>
           }
           <li><NavLink to="/register">Register</NavLink></li>
           {
             isLoggedIn && <li className="navbar_list_logout">
-              <a onClick={() => {
-                  logout()
-                  navigate('/')
-                }}>logout</a>
+              <a onClick={() => onClickLogout()}>logout</a>
             </li>
           }
         </ul>
@@ -87,6 +92,8 @@ const Navbar = ({
         <MdMenu />
       </button>
     </div>
+
+    <Msgbox body={message.body} classname={message.classname} />
   </nav>
 }
 

@@ -107,6 +107,7 @@
     &.btn_login {
       @media (min-width: $screenSm) {
         display: block;
+        height: 3.4rem;
         background-color: $color2;
         font-size: 1.5rem;
         line-height: inherit;

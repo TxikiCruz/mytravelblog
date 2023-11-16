@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { URL } from '../config'
 import Msgbox from '../components/common/Msgbox'
 
-const Register = () => {
-  const [form, setValues] = useState({
+const Register = ({ login, logout }) => {
+  const navigate = useNavigate()
+  const [values, setValues] = useState({
     email: '',
     password: '',
     password2: ''
@@ -12,17 +14,24 @@ const Register = () => {
 
   const [message, setMessage] = useState({body: '', classname: ''})
   const handleChange = e => {
-    setValues({ ...form, [e.target.name]: e.target.value })
+    setValues({ ...values, [e.target.name]: e.target.value })
+  }
+
+  const loginRegister = () => {
+
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    //logout()
     try {
       const response = await axios.post(`${URL}/users/register`, {
-        email: form.email,
-        password: form.password,
-        password2: form.password2
+        email: values.email,
+        password: values.password,
+        password2: values.password2
       })
+      console.log(response)
+      navigate('/admin/')
       setMessage({ body: response.data.message, classname: 'msg_ok' })
     }
     catch (error) {
@@ -41,7 +50,7 @@ const Register = () => {
       <input type="text" name="email" className="form_control" placeholder="Write your email" />
       <input type="password" name="password" className="form_control" placeholder="Write your password" />
       <input type="password" name="password2" className="form_control" placeholder="Confirm your password" />
-      <button className="btn">register</button>
+      <button className="btn">Register</button>
     </form>
 
     <Msgbox body={message.body} classname={message.classname} />

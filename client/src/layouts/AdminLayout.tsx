@@ -18,7 +18,7 @@ const AdminLayout = ({ children }: ParamsAdminLayout) => {
           <NavAdmin />
         </div>
 
-        {!isLoggedInValue ? <Navigate to="/login" replace /> : children}
+        {!isLoggedInValue.isLoggedIn ? <Navigate to="/login" replace /> : children}
       </div>
     </div>
 }

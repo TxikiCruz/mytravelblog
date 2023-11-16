@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { sortBy } from "lodash"
-import { useAppDispatch, useAppSelector } from '../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../store/slice-experiences-new'
-import Card, { ParamsCard } from './common/Card'
-import Pagination from './common/Pagination'
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
+import Card, { ParamsCard } from '../common/Card'
+import Pagination from '../common/Pagination'
 
 const AllExperiences = () => {
   // fetch Experiences

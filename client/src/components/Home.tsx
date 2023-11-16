@@ -1,9 +1,9 @@
 
 import Carousel from './Carousel.js'
 //import Map from './Map.js'
-import LastExperiences from './LastExperiences'
+import LastExperiences from './experiences/LastExperiences.js'
 import Timeline from './Timeline.js'
-import BestExperiences from './BestExperiences'
+import BestExperiences from './experiences/BestExperiences.js'
 
 const Home = () => {
 

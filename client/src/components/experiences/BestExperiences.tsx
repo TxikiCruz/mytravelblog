@@ -1,8 +1,8 @@
 import { useEffect, useState, Fragment } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../store/slice-experiences-new'
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
 import { sortBy } from 'lodash'
-import Card from './common/Card'
+import Card from '../common/Card'
 
 const BestExperiences = () => {
   // fetch Experiences
