@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="flex">
-          <p>myTravelBlog</p>
+          <p>© myTravelBlog</p>
         </div>
       </div>
     </footer>

@@ -56,7 +56,7 @@ function App() {
     }
   }
 
-  const login = (token, role) => {
+  const login = (token: string, role: string) => {
     //console.log('token ===>'+token)
     setRole(role)
     localStorage.setItem('token', JSON.stringify(token))
