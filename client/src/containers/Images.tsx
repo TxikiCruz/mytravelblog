@@ -19,10 +19,8 @@ const Images = () => {
 
   const fetch_images = async () => {
     try {
-      const response = await axios.get(
-        `${URL}/images/fetch_images`
-      )
-      const dataImages = [...response.data.images]
+      const res = await axios.get(`${URL}/images/fetch_images`)
+      const dataImages = res.data.images
       setImages(dataImages.reverse())
     } catch (error) {
       console.log("error ==>", error)

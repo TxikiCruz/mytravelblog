@@ -36,6 +36,7 @@
   - Mejorar diseño
   - Revisar opciones de Redux
   - Copyright?
+  - Subir a Codespace
   - Meter más contenido
   - Añadir opción subir múltiples imágenes en Admin/images con Multer
   - ImageUpload no funciona añadiendo un título a la imagen

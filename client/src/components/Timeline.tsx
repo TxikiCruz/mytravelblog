@@ -55,7 +55,7 @@ const Timeline = () => {
   // 5) Select the experience with highest score of each year and assign to a new array
   // 6) State this new array to show finally the experiences that have best score for each year
   useEffect(() => {
-    const filteredExpsWithScore = experiences.filter((elem) => elem.score)
+    const filteredExpsWithScore = experiences?.filter((elem) => elem.score)
     const sortedExperiences = sortBy(filteredExpsWithScore, ['date'])
 
     let tempExps = []

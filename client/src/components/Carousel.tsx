@@ -26,10 +26,14 @@ const Carousel = () => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      const res = await axios.get(`${URL}/images/fetch_images`)
-      let data = res.data.images
-      const imagesFeatured = data.filter(item => item.featured)
-      setSlideImages(imagesFeatured)
+      try {
+        const res = await axios.get(`${URL}/images/fetch_images`)
+        const data = res.data.images
+        const imagesFeatured = data?.filter(item => item.featured)
+        setSlideImages(imagesFeatured)
+      } catch (error) {
+        console.log("error =>", error)
+      }
     }
 
     fetchImages()
