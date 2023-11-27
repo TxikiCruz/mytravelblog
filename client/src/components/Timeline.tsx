@@ -35,17 +35,13 @@ const Timeline = () => {
     return index % 2 && 'reverse'
   }
   
-  const getYearFromDate = (ele) => {
+  const getYearFromDate = (ele: Experience) => {
     const date = new Date(ele.date)
     return date.getFullYear()
   }
 
-  interface ExperienceTemp {
-    _id: string
-    date: Date
-    title: string
-    image: string
-    score: number
+  interface ExperienceTemp extends Experience {
+    year: number
   }
 
   // 1) Filter experiences that are scored 
@@ -58,21 +54,22 @@ const Timeline = () => {
     const filteredExpsWithScore = experiences?.filter((elem) => elem.score)
     const sortedExperiences = sortBy(filteredExpsWithScore, ['date'])
 
-    let tempExps = []
+    let tempExps: Array<ExperienceTemp> = []
     for (let ele of sortedExperiences) {
       tempExps.push({
         _id: ele._id, 
-        date: getYearFromDate(ele), 
         title: ele.title,
+        date: ele.date,
+        year: getYearFromDate(ele), 
         image: ele.image,
         score: ele.score
       })
     }
 
-    const expsByDate = groupBy(tempExps, 'date')
-    const tempExpsByDateAsArray: Array<string> = []
-    Object.values(expsByDate).forEach(element => {
-      const filteredExpsByDate = element.reduce((prev, current) => (prev && prev.score > current.score) ? prev : current)
+    const expsByDate = groupBy(tempExps, 'year')
+    const tempExpsByDateAsArray: Array<Experience> = []
+    Object.values(expsByDate).forEach((element: any) => {
+      const filteredExpsByDate = element.reduce((prev: any, current: any) => (prev && prev.score > current.score) ? prev : current)
       tempExpsByDateAsArray.push(filteredExpsByDate)
       setExperiencesFiltered(tempExpsByDateAsArray)
     })
@@ -103,16 +100,16 @@ const Timeline = () => {
   return <div className="timeline">
     <div className="timeline_top">
       <h2 className="title">Timeline Experiences</h2>
-      <p className="subtitle">The best travel for every year</p>
+      <p className="subtitle">The best trip of every year</p>
     </div>
 
     <div id="timelineScrollX" className="timeline_wrapper">
       <ul className="timeline_list">
       {
-        experiencesFiltered?.map((ele, idx) => {
+        !loading && experiencesFiltered?.map((ele, idx) => {
           return (
             <li key={ele._id}>
-              <span className="year">{ele.date}</span>
+              <span className="year">{ele.year}</span>
 
               <div className={`timeline_experience ${getItemClass(idx)}`}>
                 <NavLink to={`/experience/${ele._id}`}>
@@ -134,6 +131,7 @@ const Timeline = () => {
           )
         })
       }
+      {error}
       </ul>
     </div>
   </div>

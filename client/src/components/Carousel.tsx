@@ -29,7 +29,7 @@ const Carousel = () => {
       try {
         const res = await axios.get(`${URL}/images/fetch_images`)
         const data = res.data.images
-        const imagesFeatured = data?.filter(item => item.featured)
+        const imagesFeatured = data?.filter((item: CarouselImage) => item.featured)
         setSlideImages(imagesFeatured)
       } catch (error) {
         console.log("error =>", error)

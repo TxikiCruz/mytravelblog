@@ -3,25 +3,24 @@ import Moment from 'react-moment'
 import { URL } from '../../config'
 import thumb from '../../assets/images/thumb.png'
 
-export type ParamsCard = {
-  category: string
-  content: string
-  date: Date
-  image: string
-  score: number
-  title: string
+export type PropsCard = {
   _id: string
+  title: string
+  category?: string
+  content?: string
+  date?: Date
+  image?: string
+  score?: number
 }
 
-const Card = ({ category, content, date, image, score, title, _id }: ParamsCard) => {
-  //const cont = content.split(" ").splice(0, 25).join(" ")
+const Card = ({ _id, title, category, content, date, image, score }: PropsCard) => {
 
   return <div className="card">
     <NavLink className="card_link" to={`/experience/${_id}`}>
       <span className="ima f16x9">
         <span className="backOp"></span>
         <span className="card_category">{category}</span>
-        { score > 0 && <span className="card_score">{score}</span> }
+        { score && score > 0 && <span className="card_score">{score}</span> }
         <img src={image ? `${URL}/static/images/${image}` : thumb} alt={title} />
       </span>
       <p className="card_title">{title}</p>

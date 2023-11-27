@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { sortBy } from "lodash"
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
 import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
-import Card, { ParamsCard } from '../common/Card'
+import Card, { PropsCard } from '../common/Card'
 import Pagination from '../common/Pagination'
 
 const AllExperiences = () => {
@@ -45,7 +45,7 @@ const AllExperiences = () => {
 
         <div className="content flex">
           {
-            currentExps.map((ele: ParamsCard) => {
+            currentExps.map((ele: PropsCard) => {
 
               return <Card
                 key={`exp-${ele._id}`}

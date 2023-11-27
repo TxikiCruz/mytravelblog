@@ -31,6 +31,7 @@
   - Role admin/author
   - Arreglar formulario Contacto (Nodemailer)
   - Revisar buscador
+  - Revisar errores para ejecutar npm run build
   - Mensajes popup solo aparece la primera acción
   - Al arrancar el proyecto no se cargan los datos si no recargas el browser
   - Mejorar diseño

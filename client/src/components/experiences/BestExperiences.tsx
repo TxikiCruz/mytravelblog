@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
 import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
 import { sortBy } from 'lodash'
@@ -27,10 +27,11 @@ const BestExperiences = () => {
     handleFetchExperiences()
   }, [])
 
+  // Sort experiences by score
   useEffect(() => {
     const numDisplay = 3
     const sortedExps = sortBy(experiences, ['date'])
-    const expsWithScore = sortedExps.filter(item => item.score != null)
+    const expsWithScore = sortedExps.filter(item => item.score)
     let bestExps = sortBy(expsWithScore, ['score']).reverse()
     bestExps = bestExps.slice(0, numDisplay)
     setExperiencesBest(bestExps)
@@ -41,21 +42,21 @@ const BestExperiences = () => {
 
     <div className="flex">
       {
-        experiencesBest.map((ele, i) => {
+        !loading && experiencesBest.map((ele, i) => {
 
-          return <Fragment key={`bestExp-${ele._id}`}>
-            <Card
-              _id={ele._id}
-              title={ele.title}
-              category={ele.category}
-              content={ele.content}
-              date={ele.date}
-              score={ele.score}
-              image={ele.image}
-            />
-          </Fragment>
+          return <Card
+            key={`bestExp-${ele._id}`}
+            _id={ele._id}
+            title={ele.title}
+            category={ele.category}
+            content={ele.content}
+            date={ele.date}
+            score={ele.score}
+            image={ele.image}
+          />
         })
       }
+      {error}
     </div>
   </div>
 }

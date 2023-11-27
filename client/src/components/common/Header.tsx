@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import Navbar from './Navbar'
 
-const Header = ({
-  isLoggedIn,
-  logout
-}) => {
+type PropsHeader = {
+  isLoggedIn: boolean
+  logout: void
+}
+
+const Header = ({ isLoggedIn, logout }: PropsHeader) => {
   return <header className="header">
       <div className="container">
         <div className="flex">

@@ -39,7 +39,7 @@ const LastExperiences = () => {
 
     <div className="flex">
       {
-        experiencesLast.map(ele => {
+        !loading && experiencesLast.map(ele => {
 
           return <Card
             key={`lastExp-${ele._id}`}

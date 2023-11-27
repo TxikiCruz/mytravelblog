@@ -4,10 +4,12 @@ import { RootState } from './store'
 import { URL } from '../config'
 
 export interface Experience {
+  _id: string
   user?: string,
   title: string,
   category?: string,
-  date?: Date,
+  date: Date,
+  year?: number,
   image?: string,
   content?: string,
   score?: number
