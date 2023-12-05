@@ -1,53 +1,60 @@
-// A slice is a portion of the Redux store that is responsible for managing a specific piece of state
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import axios from 'axios'
+import { RootState } from './store'
 import { URL } from '../config'
 
-export interface Exp {
+export interface Experience {
+  _id: string
   user?: string,
   title: string,
   category?: string,
   date?: Date,
+  year?: number,
   image?: string,
   content?: string,
   score?: number
 }
 
-export const fetchExps = createAsyncThunk(
-  'exps/fetchExps',
+export interface ExperienceState {
+  loading: boolean
+  experiences: Array<Experience>
+  error: string | undefined
+}
+
+const initialState: ExperienceState = {
+  experiences: [],
+  loading: false,
+  error: undefined,
+}
+
+export const fetchExperiences = createAsyncThunk(
+  'experiences/fetchExperiences',
   async () => {
     const response = await axios.get(`${URL}/admin/experiences`)
     return response.data
   },
 )
 
-const initialState = {
-  exps: [] as Exp[],
-  status: 'idle',
-  error: null,
-}
-
-export const expsSlice = createSlice({
-  name: "exps",
+export const experiencesSlice = createSlice({
+  name: "experiences",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchExps.pending, (state) => {
-        state.status = 'loading'
+      .addCase(fetchExperiences.pending, (state) => {
+        state.loading = true
       })
-      .addCase(fetchExps.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.exps = action.payload
+      .addCase(fetchExperiences.fulfilled, (state, action: PayloadAction<Array<Experience>>) => {
+        state.loading = false
+        state.experiences = action.payload
       })
-      .addCase(fetchExps.rejected, (state, action) => {
-        state.status = 'failed'
+      .addCase(fetchExperiences.rejected, (state, action) => {
+        state.loading = false
+        state.experiences = []
         state.error = action.error.message
       })
   },
 })
 
-export const getExps = (state) => state.exps.exps
-export const getExpsStatus = (state) => state.exps.status
-export const getExpsError = (state) => state.exps.error
-export default expsSlice.reducer
+export const experiencesSelector = (state: RootState) => state.experiencesReducer
+export default experiencesSlice.reducer

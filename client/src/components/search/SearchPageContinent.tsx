@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences'
 import { Cat, fetchCats, catsSelector } from '../../store/slice-categories'
 import { useLocation } from 'react-router-dom'
 import Card from '../common/Card'
@@ -9,7 +9,6 @@ import Spinner from '../common/Spinner'
 const SearchPageContinent = () => {
   const location = useLocation()
   const [param, setParam] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
 
   // fetch Experiences
   const [experiences, setExperiences] = useState<Array<Experience>>([])
@@ -35,13 +34,13 @@ const SearchPageContinent = () => {
 
   // fetch Categories
   const [cats, setCats] = useState<Array<Cat>>([])
-  const [loadingCats, setLoadingCats] = useState<boolean>(false)
+  //const [loadingCats, setLoadingCats] = useState<boolean>(false)
   //const [error, setError] = useState<string | undefined>(undefined)
   const selectedCats = useAppSelector(catsSelector)
   //const dispatch = useAppDispatch()
 
   useEffect(() => {
-    setLoadingCats(selectedCats.loading)
+    //setLoadingCats(selectedCats.loading)
     //setError(selectedCats.error)
     setCats(selectedCats.cats)
   }, [selectedCats])
@@ -77,7 +76,7 @@ const SearchPageContinent = () => {
   useEffect(() => {
     const catsFiltered = cats.filter(item => formatContinent(item.continent))
 
-    let temp = []
+    let temp:Experience[] = []
     Object.values(catsFiltered).forEach((elem) => {
       experiences.forEach((item) => {
         if (item.category?.toLowerCase() === elem.name.toLowerCase()) {
@@ -93,7 +92,7 @@ const SearchPageContinent = () => {
     <div className="container">
       <div className="wrapper">
 
-        {!isLoading && !loading && expsFiltered ?
+        {!loading && expsFiltered ?
           <>
             <div className="top">
               <h2 className="title">Results search for <span>{param}</span></h2>
@@ -120,9 +119,9 @@ const SearchPageContinent = () => {
           </>
           : <Spinner />
         }
-
+        {error}
         {
-          !isLoading && !loading && expsFiltered.length === 0 &&
+          !loading && expsFiltered.length === 0 &&
           <p className="msg error">No Results</p>
         }
       </div>

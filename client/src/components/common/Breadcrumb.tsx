@@ -7,7 +7,7 @@ export type ParamsBreadcrumb = {
 }
 
 const Breadcrumb = ({ page }: ParamsBreadcrumb) => {
-  const { titleExperience } = useContext(Contexts)
+  const { titleExperience }: any = useContext(Contexts)
 
   return <div className="breadcrumbs">
     <div className="container">

@@ -5,6 +5,7 @@ import { RootState } from './store'
 import { URL } from '../config'
 
 export interface ScoreType {
+  readonly _id: string,
   experience: string,
   user: string,
   score: number
@@ -19,7 +20,6 @@ export interface ScoreState {
 const initialState: ScoreState = {
   scores: [],
   loading: false,
-  //status: 'idle',
   error: undefined,
 }
 
@@ -38,16 +38,13 @@ export const scoresSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchScores.pending, (state) => {
-        //state.status = 'loading'
         state.loading = true
       })
       .addCase(fetchScores.fulfilled, (state, action: PayloadAction<Array<ScoreType>>) => {
-        //state.status = 'succeeded'
         state.loading = false
         state.scores = action.payload
       })
       .addCase(fetchScores.rejected, (state, action) => {
-        //state.status = 'failed'
         state.loading = false
         state.scores = []
         state.error = action.error.message
@@ -55,9 +52,5 @@ export const scoresSlice = createSlice({
   },
 })
 
-//export const getScores = (state) => state.scores.scores
-//export const getScoresStatus = (state) => state.scores.status
-//export const getScoresError = (state) => state.scores.error
-//export default scoresSlice.reducer
 export const scoresSelector = (state: RootState) => state.scoresReducer
 export default scoresSlice.reducer

@@ -1,15 +1,32 @@
 import { useState, useEffect, Fragment } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getExps, getExpsStatus, getExpsError, fetchExps } from '../../store/slice-experiences'
+import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences'
 import { useLocation } from 'react-router-dom'
 import Card from '../common/Card'
 
 const SearchPage = () => {
-  const dispatch = useDispatch()
-  const exps = useSelector(getExps)
-  const expsStatus = useSelector(getExpsStatus)
-  //const expsError = useSelector(getExpsError)
+  // fetch Experiences
+  const [experiences, setExperiences] = useState<Array<Experience>>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | undefined>(undefined)
+  const selectedExperiences = useAppSelector(experiencesSelector)
+  const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    setLoading(selectedExperiences.loading)
+    setError(selectedExperiences.error)
+    setExperiences(selectedExperiences.experiences)
+  }, [selectedExperiences])
+
+  function handleFetchExperiences() {
+    dispatch(fetchExperiences())
+  }
+
+  useEffect(() => {
+    handleFetchExperiences()
+  }, [])
+
+  // get search param
   const location = useLocation()
   const [param, setParam] = useState('')
   const [isLoading, setIsLoading] = useState(true)
@@ -25,65 +42,60 @@ const SearchPage = () => {
     }
   }
 
+  // get results filtered by title or category
   const loadResults = () => {
-    let expsResult = exps.filter(item => item.title.toLowerCase().includes(param.toLowerCase()) ||item.category.toLowerCase().includes(param.toLowerCase()))
+    let expsResult = experiences.filter(item => item.title.toLowerCase().includes(param.toLowerCase()) || item.category.toLowerCase().includes(param.toLowerCase()))
     setSearchResults(expsResult)
     setIsLoading(false)
   }
 
   useEffect(() => {
-    if (expsStatus === 'idle') {
-      dispatch(fetchExps())
-    }
-
-    if (expsStatus === 'succeeded' && param) {
-      loadResults()
-    }
-  }, [expsStatus, dispatch])
+    getPathSearch()
+  }, [location.pathname])
 
   useEffect(() => {
-    getPathSearch()
-  }, [])
+    loadResults()
+  }, [experiences, param])
 
   return <div className="page search">
-      <div className="container">
-        <div className="wrapper">
+    <div className="container">
+      <div className="wrapper">
 
-            { !isLoading && searchResults.length > 0 &&
-            <>
-              <div className="top">
-                <h2 className="title">Results for <span>{param}</span></h2>
-              </div>
+        {!loading && !isLoading && searchResults.length > 0 &&
+          <>
+            <div className="top">
+              <h2 className="title">Results for <span>{param}</span></h2>
+            </div>
 
-              <div className="content">
-                {
-                  searchResults.map((ele, i) => {
+            <div className="content">
+              {
+                searchResults.map((ele) => {
 
-                    return <Fragment key={`searchExp-${ele._id}`}>
-                      <Card
-                        _id={ele._id}
-                        title={ele.title}
-                        category={ele.category}
-                        content={ele.content}
-                        date={ele.date}
-                        score={ele.score}
-                        image={ele.image}
-                      />
-                    </Fragment>
-                  })
-                }
-              </div>
-            </>
-            }
+                  return <Fragment key={`searchExp-${ele._id}`}>
+                    <Card
+                      _id={ele._id}
+                      title={ele.title}
+                      category={ele.category}
+                      content={ele.content}
+                      date={ele.date}
+                      score={ele.score}
+                      image={ele.image}
+                    />
+                  </Fragment>
+                })
+              }
+            </div>
+          </>
+        }
 
-            {
-              !isLoading && searchResults.length === 0 &&
-              <p className="msg error">No Results for {param}</p>
-            }
-
-        </div>
+        {
+          !loading && !isLoading && searchResults.length === 0 &&
+          <p className="msg error">No Results for {param}</p>
+        }
+        {error}
       </div>
     </div>
+  </div>
 }
 
 export default SearchPage

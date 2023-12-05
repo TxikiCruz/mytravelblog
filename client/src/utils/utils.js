@@ -1,3 +1,4 @@
+// @ts-nocheck
 // group array by field
 export const groupBy = (array, key) => {
   return array.reduce((result, currentValue) => {

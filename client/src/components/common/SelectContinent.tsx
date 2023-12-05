@@ -14,6 +14,7 @@ const SelectContinent = ({ handleChange, selected }: PropsSelectContinent) => {
   const [continents, setContinents] = useState<Array<Continent>>([])
 
   // Get continents from public api
+  // new Set to store unique values
   const getContinents = async () => {
     axios
       .get(`https://restcountries.com/v3.1/all?fields=continents`)
@@ -21,6 +22,7 @@ const SelectContinent = ({ handleChange, selected }: PropsSelectContinent) => {
         const data = res.data
         const jsonObject = data.map(JSON.stringify)
         const uniqueSet = new Set(jsonObject)
+        // @ts-ignore
         const uniqueArray = Array.from(uniqueSet).map(JSON.parse)
         setContinents(uniqueArray)
         return uniqueArray

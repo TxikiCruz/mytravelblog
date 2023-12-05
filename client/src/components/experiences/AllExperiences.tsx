@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { sortBy } from "lodash"
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences'
 import Card, { PropsCard } from '../common/Card'
 import Pagination from '../common/Pagination'
 
@@ -45,7 +45,7 @@ const AllExperiences = () => {
 
         <div className="content flex">
           {
-            currentExps.map((ele: PropsCard) => {
+            !loading && currentExps.map((ele: PropsCard) => {
 
               return <Card
                 key={`exp-${ele._id}`}
@@ -60,7 +60,7 @@ const AllExperiences = () => {
             })
           }
         </div>
-
+        {error}
         {
           experiences.length > 0 && experiences.length > itemsPerPage &&
 

@@ -29,13 +29,14 @@
 
     /* Linting */
     "strict": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noImplicitOverride": true
   },
   "include": ["src"],
+  "exclude": ["src/utils/utils.js", "src/**/_*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

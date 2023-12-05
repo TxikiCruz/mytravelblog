@@ -9,16 +9,17 @@ type ParamsAdminLayout = {
 }
 
 const AdminLayout = ({ children }: ParamsAdminLayout) => {
-  const { isLoggedInValue } = useContext(Contexts)
+  const { token, isLoggedInValue } = useContext(Contexts)
 
   return <div className="page admin">
       <div className="container">
         <div className="top">
           <h2 className="title">Admin Panel</h2>
+          {isLoggedInValue.isLoggedIn}
           <NavAdmin />
         </div>
 
-        {!isLoggedInValue.isLoggedIn ? <Navigate to="/login" replace /> : children}
+        {!token && !isLoggedInValue?.isLoggedIn ? <Navigate to="/login" replace /> : children}
       </div>
     </div>
 }

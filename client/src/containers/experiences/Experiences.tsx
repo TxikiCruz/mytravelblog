@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, MouseEvent } from 'react'
 import axios from 'axios'
 import Moment from 'react-moment'
 import { sortBy } from "lodash"
 import { MdDelete, MdEdit, MdClose, MdCheckCircle } from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences'
 import { URL } from '../../config'
+import { Contexts } from '../../App'
 import AddExperience from './AddExperience'
 import SelectCategories from '../../components/common/SelectCategories'
 import Pagination from '../../components/common/Pagination'
@@ -13,12 +14,12 @@ import Msgbox from '../../components/common/Msgbox'
 import ImageUpload from '../ImageUpload'
 import thumb from '../../assets/images/thumb.png'
 
-const Experiences = ({ user }) => {
-  const [newValues, setNewValues] = useState({ title: '', category: '', content: '' })
+const Experiences = () => {
+  const { user } = useContext(Contexts)
+  const [newValues, setNewValues] = useState<Experience>()
   const [selectedFilename, setSelectedFilename] = useState(null)
   const [message, setMessage] = useState({ body: '', classname: '' })
   const [updateActive, setUpdateActive] = useState(null)
-  const childRef = useRef()
 
   // fetch Experiences
   const [experiences, setExperiences] = useState<Array<Experience>>([])
@@ -47,11 +48,12 @@ const Experiences = ({ user }) => {
     !isFormAddVisible ? setIsFormAddVisible(true) : setIsFormAddVisible(false)
   }
 
-  const handleChangeUpdate = e => {
-    setNewValues({ ...newValues, [e.target.name]: e.target.value })
+  const handleChangeUpdate = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = e.currentTarget
+    if (target) setNewValues({ ...newValues, [target.name]: target.value })
   }
 
-  const onClickDelete = async (id) => {
+  const onClickDelete = async (id: string) => {
     try {
       let url = `${URL}/admin/experiences/delete`
       await axios.post(url, { _id: id })
@@ -62,34 +64,32 @@ const Experiences = ({ user }) => {
     }
   }
 
-  const onClickClose = (e) => {
+  const onClickClose = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     setUpdateActive(null)
   }
 
-  const getImaUpdExp = (id, data) => {
-    let ima = ''
-    if (data.filename) {
-      ima = data.filename
-    } else {
-      ima = newValues.image
-    }
-    //updateExp(id, ima)
-  }
-
-  const onClickShowUpdate = (idx) => {
+  const onClickShowUpdate = (idx: string) => {
     setUpdateActive(idx)
     let idExp = experiences.findIndex(e => e._id === idx)
-    setNewValues({ user: experiences[idExp].user, image: experiences[idExp].image, title: experiences[idExp].title, category: experiences[idExp].category, content: experiences[idExp].content, score: experiences[idExp].score })
+    setNewValues({ 
+      _id: idx,
+      user: experiences[idExp].user, 
+      image: experiences[idExp].image, 
+      title: experiences[idExp].title, 
+      category: experiences[idExp].category, 
+      content: experiences[idExp].content, 
+      score: experiences[idExp].score 
+    })
   }
 
-  const updateExperience = async (id) => {
+  const updateExperience = async (id: string) => {
     try {
       let url = `${URL}/admin/experiences/update`
       await axios.post(url, { 
         _id: id, 
         user: newValues.user, 
-        image: selectedFilename ? selectedFilename : newValues.image, 
+        image: selectedFilename || newValues.image, 
         title: newValues.title, 
         category: newValues.category, 
         content: newValues.content, 
@@ -139,7 +139,7 @@ const Experiences = ({ user }) => {
             </div>
           </div>
           {
-            currentExps.map((ele) => {
+            !loading && currentExps.map((ele) => {
               return <div className="tGroup" key={ele._id}>
                 <div className="tRow">
                   <div className="tCol">
@@ -227,6 +227,8 @@ const Experiences = ({ user }) => {
         paginate={paginate}
       />
     }
+
+    {error}
   </div>
 }
 

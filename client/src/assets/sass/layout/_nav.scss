@@ -117,9 +117,11 @@
         padding: 0.6rem 2rem;
         margin-left: 1rem;
         border-radius: 2.5rem;
+        box-shadow: 0.2rem 0.2rem 0.1rem #000;
       }
 
       &:hover {
+        box-shadow: none;
       }
     }
   }

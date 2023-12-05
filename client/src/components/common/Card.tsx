@@ -20,7 +20,7 @@ const Card = ({ _id, title, category, content, date, image, score }: PropsCard) 
       <span className="ima f16x9">
         <span className="backOp"></span>
         <span className="card_category">{category}</span>
-        { score && score > 0 && <span className="card_score">{score}</span> }
+        { score && score > 0 ? <span className="card_score">{score}</span> : null }
         <img src={image ? `${URL}/static/images/${image}` : thumb} alt={title} />
       </span>
       <p className="card_title">{title}</p>

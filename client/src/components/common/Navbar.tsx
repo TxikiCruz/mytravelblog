@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, MouseEvent } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
 import { MdMenu, MdOutlineLogout, MdOutlinePermIdentity } from 'react-icons/md'
 import SearchForm from '../search/SearchForm.js'
@@ -6,12 +6,17 @@ import { useResizer } from '../../hooks/useResizer'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import Msgbox from './Msgbox'
 
-const Navbar = ({ isLoggedIn, logout }) => {
+type PropsNavbar = {
+  isLoggedIn: boolean
+  logout: () => void
+}
+
+const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
   const refNav = useRef()
   const refNavAdmin = useRef()
   const [isOpenNav, setIsOpenNav] = useState(false)
   const [isOpenNavAdmin, setIsOpenNavAdmin] = useState(false)
-  const [message, setMessage] = useState({body: '', classname: ''})
+  const [message, setMessage] = useState({ body: '', classname: '' })
   const isMobile = useResizer()
   const navigate = useNavigate()
 
@@ -20,7 +25,7 @@ const Navbar = ({ isLoggedIn, logout }) => {
     setIsOpenNavAdmin(false)
   }, [])
 
-  const openNavMain = (e) => {
+  const openNavMain = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (isOpenNav === false) {
       setIsOpenNav(true)
@@ -30,7 +35,7 @@ const Navbar = ({ isLoggedIn, logout }) => {
     }
   }
 
-  const openNavAdmin = (e) => {
+  const openNavAdmin = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (isOpenNavAdmin === false) {
       setIsOpenNavAdmin(true)
@@ -82,8 +87,8 @@ const Navbar = ({ isLoggedIn, logout }) => {
           }
         </button>
 
-        <ul 
-          className={`navbar_list ${isOpenNavAdmin ? 'open' : ''}`} 
+        <ul
+          className={`navbar_list ${isOpenNavAdmin ? 'open' : ''}`}
           onClick={() => setIsOpenNavAdmin(false)}
         >
           {

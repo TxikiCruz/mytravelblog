@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { URL } from '../config'
 import Msgbox from '../components/common/Msgbox'
 
-const Register = ({ login, logout }) => {
-  const navigate = useNavigate()
-  const [values, setValues] = useState({
-    email: '',
-    password: '',
-    password2: ''
-  })
+type PropsRegister = {
+  login: (token: string, role: string) => void
+  logout: () => void
+}
 
-  const [message, setMessage] = useState({body: '', classname: ''})
-  const handleChange = e => {
-    setValues({ ...values, [e.target.name]: e.target.value })
+const Register = ({ login, logout }: PropsRegister) => {
+  const navigate = useNavigate()
+  const [values, setValues] = useState({ email: '', password: '', password2: '' })
+  const [message, setMessage] = useState({ body: '', classname: '' })
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
+    if (target) setValues({ ...values, [target.name]: target.value })
   }
 
   const loginRegister = async () => {
@@ -38,7 +40,7 @@ const Register = ({ login, logout }) => {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     logout()
     try {
@@ -60,12 +62,11 @@ const Register = ({ login, logout }) => {
 
     <form
       onSubmit={handleSubmit}
-      onChange={handleChange}
       className='form'
     >
-      <input type="text" name="email" className="form_control" placeholder="Write your email" />
-      <input type="password" name="password" className="form_control" placeholder="Write your password" />
-      <input type="password" name="password2" className="form_control" placeholder="Confirm your password" />
+      <input type="text" name="email" className="form_control" placeholder="Write your email" onChange={handleChange} />
+      <input type="password" name="password" className="form_control" placeholder="Write your password" onChange={handleChange} />
+      <input type="password" name="password2" className="form_control" placeholder="Confirm your password" onChange={handleChange} />
       <button className="btn">Register</button>
     </form>
 

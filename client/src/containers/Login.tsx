@@ -1,23 +1,28 @@
-import { useState } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { URL } from '../config'
 import Msgbox from '../components/common/Msgbox'
 
-const Login = ({ login }) => {
+type PropsLogin = {
+  login: (token: string, role: string) => void
+}
+
+const Login = ({ login }: PropsLogin) => {
   const navigate = useNavigate()
-  const [message, setMessage] = useState({body: '', classname: ''})
+  const [message, setMessage] = useState({ body: '', classname: '' })
 
   const [values, setValues] = useState({
     email: '',
     password: ''
   })
 
-  const handleChange = e => {
-    setValues({ ...values, [e.target.name]: e.target.value })
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
+    if (target) setValues({ ...values, [target.name]: target.value })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const response = await axios.post(`${URL}/users/login`, {
@@ -44,11 +49,10 @@ const Login = ({ login }) => {
 
     <form
       onSubmit={handleSubmit}
-      onChange={handleChange}
       className="form"
     >
-      <input type="text" name="email" className="form_control" placeholder="Write your email" />
-      <input type="password" name="password" className="form_control" placeholder="Write your password" />
+      <input type="text" name="email" className="form_control" placeholder="Write your email" onChange={handleChange} />
+      <input type="password" name="password" className="form_control" placeholder="Write your password" onChange={handleChange} />
       <button className="btn">login</button>
     </form>
 

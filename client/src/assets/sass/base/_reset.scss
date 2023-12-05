@@ -39,9 +39,9 @@ img {
 
 button {
   cursor: pointer;
+	
   &:focus {
-    outline:0;
-    border:0;
+    outline: 0;
   }
 }
 

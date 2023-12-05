@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { URL } from '../config'
+import { ScoreType } from '../store/slice-scores'
 
-const Score = ({ scores, exp }) => {
+type PropsScore = {
+  scores: Array<ScoreType>
+  exp: string
+}
+
+const Score = ({ scores, exp }: PropsScore) => {
   const [score, setScore] = useState(null)
   const [hasScore, setHasScore] = useState(false)
 
@@ -26,11 +32,13 @@ const Score = ({ scores, exp }) => {
     setScore(result)
   }
 
-  const uploadScore = async (sc) => {
-    let idExp = exp._id
+  const uploadScore = async (scoreNum: number) => {
     try {
-      let url = `${URL}/admin/experiences/update`
-      await axios.post(url, { _id: idExp, score: sc })
+      let url = `${URL}/admin/experiences/update_score`
+      await axios.post(url, {
+        _id: exp,
+        score: scoreNum 
+      })
     } catch (error) {
       console.log(error)
     }
@@ -38,7 +46,7 @@ const Score = ({ scores, exp }) => {
 
   useEffect(() => {
     getScore()
-  }, [scores, score])
+  }, [score])
 
   return <p className="score">
     {hasScore && <>{score}<span>/5</span></>}

@@ -57,6 +57,20 @@ class experiencesController {
       res.send({ error });
     };
   }
+
+  async updateScoreExperience(req, res) {
+    let params = req.body;  
+    
+    try {
+      const updated = await experiences.updateOne(
+        { _id: params._id }, { score: params.score }
+      );
+      res.send({ updated });
+    }
+    catch (error) {
+      res.send({ error });
+    };
+  }
 }
 
 module.exports = new experiencesController();

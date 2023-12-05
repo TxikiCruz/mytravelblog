@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { sortBy } from "lodash"
 import { URL } from '../config'
 import { useAppDispatch, useAppSelector } from '../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../store/slice-experiences-new'
+import { Experience, fetchExperiences, experiencesSelector } from '../store/slice-experiences'
 import useScrollPosition from '../hooks/useScrollPosition'
 import { groupBy } from '../utils/utils'
 import thumb from '../assets/images/thumb.png'

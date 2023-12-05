@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import axios from 'axios'
 import { sortBy } from 'lodash'
 import { MdDelete, MdEdit, MdClose, MdCheckCircleOutline } from 'react-icons/md'
@@ -44,24 +44,24 @@ const Categories = () => {
   }
 
   // handle form events
-  const [valuesInputAdd, setValuesInputAdd] = useState({})
-  const [valuesInputUpdate, setValuesInputUpdate] = useState({})
+  const [valuesInputAdd, setValuesInputAdd] = useState<Cat>()
+  const [valuesInputUpdate, setValuesInputUpdate] = useState<Cat>()
   const [message, setMessage] = useState<ParamsMsgBox>({body: '', classname: ''})
   const [updateActive, setUpdateActive] = useState<string | null>(null)
   const reg = /^[A-Za-z\s]+$/
 
-  const handleChangeInputAdd = (event: React.FormEvent<HTMLInputElement>) => {
-    const target = event.currentTarget
+  const handleChangeInputAdd = (e: FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
     if (target) setValuesInputAdd({ ...valuesInputAdd, [target.name]: target.value })
   }
 
-  const handleChangeInputUpdate = (event: React.FormEvent<HTMLInputElement>) => {
-    const target = event.currentTarget
+  const handleChangeInputUpdate = (e: FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
     if (target) setValuesInputUpdate({ ...valuesInputUpdate, [target.name]: target.value })
   }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
     try {
       let url = `${URL}/admin/categories/add`
@@ -98,7 +98,11 @@ const Categories = () => {
   const onClickShowUpdate = async (idx: string) => {
     setUpdateActive(idx)
     let idCat = cats.findIndex(e => e._id === idx)
-    setValuesInputUpdate({ name: cats[idCat].name, continent: cats[idCat].continent })
+    setValuesInputUpdate({ 
+      _id: idx,
+      name: cats[idCat].name, 
+      continent: cats[idCat].continent 
+    })
   }
 
   const onClickCloseUpdate = async () => {

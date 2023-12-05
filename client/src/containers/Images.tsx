@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import axios from 'axios'
 import { MdDelete, MdEdit, MdClose, MdCheckCircleOutline } from 'react-icons/md'
 import { URL } from '../config'
@@ -14,6 +14,7 @@ const Images = () => {
   const [message, setMessage] = useState({ body: '', classname: '' })
 
   useEffect(() => {
+    console.log(selectedFilename)
     fetch_images()
   }, [])
 
@@ -35,15 +36,17 @@ const Images = () => {
     setUpdateActive(null)
   }
 
-  const handleChangeSwitch = (e, id) => {
-    let featured = e.target.checked
+  const handleChangeSwitch = (e: FormEvent<HTMLInputElement>, idx: string) => {
+    !updateActive && setUpdateActive(idx)
+    const target = e.currentTarget
+    let featured = target.checked
     setFeatured(featured)
   }
 
-  const onClickUpdate = async (id) => {
+  const onClickUpdate = async (idx: string) => {
     try {
       let url = `${URL}/images/update_image`
-      await axios.post(url, { _id: id, featured: featured })
+      await axios.post(url, { _id: idx, featured: featured })
       fetch_images()
       setMessage({ body: `Image updated!`, classname: 'msg_ok' })
     } catch (error) {
@@ -51,9 +54,10 @@ const Images = () => {
     }
   }
 
-  const onClickDelete = async (_id, filename) => {
+  const onClickDelete = async (idx: string, filename: string) => {
+    console.log(message)
     try {
-      let url = `${URL}/images/delete_image/${_id}/${filename}`
+      let url = `${URL}/images/delete_image/${idx}/${filename}`
       await axios.delete(url)
       fetch_images()
       setMessage({ body: `Image removed!`, classname: 'msg_ok' })

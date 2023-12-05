@@ -26,7 +26,9 @@ import './assets/sass/main.scss'
 export const Contexts = createContext({})
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const token = JSON.parse(localStorage.getItem('token'))
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [user, setUser] = useState('')
   const [role, setRole] = useState('')
   // Experience title for context
   const [titleExperience, setTitleExperience] = useState('')
@@ -37,13 +39,7 @@ function App() {
     [isLoggedIn]
   )
 
-  const [user, setUser] = useState('')
-  const token = JSON.parse(localStorage.getItem('token'))
-
   const verify_token = async () => {
-    if (token === null) {
-      return setIsLoggedIn(false)
-    }
     try {
       axios.defaults.headers.common['Authorization'] = token
       const response = await axios.post(`${URL}/users/verify_token`)
@@ -100,7 +96,9 @@ function App() {
   // }
 
   const contextValues = {
+    token,
     isLoggedInValue, 
+    user,
     role,
     setRole,
     titleExperience, 
@@ -129,12 +127,12 @@ function App() {
 
           <Route path='/admin' element={
             <AdminLayout>
-              <Experiences user={user} />
+              <Experiences />
             </AdminLayout>
           } />
           <Route path='/admin/experiences' element={
             <AdminLayout>
-              <Experiences user={user} />
+              <Experiences />
             </AdminLayout>
           } />
           <Route path='/admin/categories' element={

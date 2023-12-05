@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
 import { ScoreType, fetchScores, scoresSelector } from '../../store/slice-scores'
 import axios from 'axios'
@@ -12,9 +12,24 @@ import Msgbox from '../common/Msgbox'
 import Spinner from '../common/Spinner'
 import { Contexts } from '../../App'
 
-const Experience = ({ user }) => {
+type PropsExperience = {
+  user: string
+}
+
+type SingleExperience = {
+  _id: string
+  user?: string
+  title: string
+  category?: string
+  date: Date
+  image?: string
+  content?: string
+  score?: number
+}
+
+const Experience = ({ user }: PropsExperience) => {
   const { exp } = useParams()
-  const [experience, setExperience] = useState()
+  const [experience, setExperience] = useState<SingleExperience>()
 
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
@@ -31,13 +46,13 @@ const Experience = ({ user }) => {
   }, [])
 
   // To read html code from data api
-  const getDataParsed = (data) => {
+  const getDataParsed = (data: string) => {
     const theObj = {__html: data}
     return <span dangerouslySetInnerHTML={theObj} />
   }
 
   // save experience title for Breadcrumbs
-  const { setTitleExperience } = useContext(Contexts)
+  const { setTitleExperience }: any = useContext(Contexts)
 
   useEffect(() => {
     if (experience?.title) {
@@ -80,7 +95,7 @@ const Experience = ({ user }) => {
       let tempComm = []
       for (let ele of data) {
         if (exp === ele.experience) {
-          tempComm.push({ experience: ele.experience, user: ele.user, date: ele.date, content: ele.content })
+          tempComm.push({ _id: ele._id, experience: ele.experience, user: ele.user, date: ele.date, content: ele.content })
         }
       }
       setComments(tempComm)
@@ -89,11 +104,12 @@ const Experience = ({ user }) => {
     }
   }
 
-  const handleChangeComment = e => {
-    setComment(e.target.value)
+  const handleChangeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const target = e.currentTarget
+    if (target) setComment(e.target.value)
   }
 
-  const handleSubmitComment = async (e) => {
+  const handleSubmitComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       let url = `${URL}/admin/comments/add`
@@ -113,7 +129,7 @@ const Experience = ({ user }) => {
     <div className="container">
       <div className="wrapper flex">
         <div className="content_page">
-          {experience ?
+          {!loading && experience ?
             <>
               <div className="content_top">
                 <h3 className="content_title">{experience.title}</h3>
@@ -137,6 +153,7 @@ const Experience = ({ user }) => {
             </>
             : <Spinner />
           }
+          {error}
         </div>
 
         <div className="sidebar">
@@ -152,7 +169,7 @@ const Experience = ({ user }) => {
           <div className="sidebar_scores">
             <h3 className="sidebar_title">Score the experience <span>(1/5)</span></h3>
 
-            <Stars exp={exp} user={user} />
+            <Stars exp={exp} />
           </div>
 
           <Msgbox body={message.body} classname={message.classname} />

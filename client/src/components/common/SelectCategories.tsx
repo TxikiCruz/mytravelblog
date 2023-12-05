@@ -33,21 +33,17 @@ const SelectCategories = ({ handleChange, selected }: PropsSelectCategories) => 
     handleFetchCats()
   }, [])
 
-  return <>
-    {loading && <div>Loading...</div>}
-    {error && <div>Error: {error}</div>}
-
-    <select name="name" className="form_control" onChange={handleChange} defaultValue={selected}>
-      <option>name</option>
-      {
-        cats && cats.length > 0 && cats.map((ele: Cat) => {
-          return <option key={ele._id} value={ele.name}>
-            {ele.name}
-          </option>
-        })
-      }
-    </select>
-  </>
+  return <select name="category" className="form_control" onChange={handleChange} defaultValue={selected}>
+    <option>{selected || "Category"}</option>
+    {
+      !loading && cats?.length > 0 && cats.map((ele: Cat) => {
+        return <option key={ele._id} value={ele.name}>
+          {ele.name}
+        </option>
+      })
+    }
+    {error}
+  </select>
 }
 
 export default SelectCategories

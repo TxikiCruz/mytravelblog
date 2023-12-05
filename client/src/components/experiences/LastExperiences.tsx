@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
-import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences-new'
+import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences'
 import { sortBy } from 'lodash'
 import Card from '../common/Card'
 

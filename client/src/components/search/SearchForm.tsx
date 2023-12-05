@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import { MdSearch, MdClose } from 'react-icons/md'
@@ -18,8 +18,9 @@ const SearchForm = () => {
     }
   }
 
-  const handleChange = e => {
-    setValue(e.target.value)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
+    if (target) setValue(target.value)
   }
 
   const clearInput = () => {

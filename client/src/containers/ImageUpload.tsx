@@ -1,56 +1,44 @@
-import { useState, useEffect } from 'react'
+import { useState, FormEvent } from 'react'
 import axios from 'axios'
 import { checkFileSize } from '../utils/utils'
-//import { Progress } from "reactstrap"
 import { URL } from '../config'
 
 type propsImageUpload = {
-  setSelectedFilename?: void
-  fetch_images?: void
+  setSelectedFilename?: (c: string) => void
+  fetch_images?: () => void
   isImageWithTitle: boolean
 }
 
-const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }) => {
+const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }: propsImageUpload) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [loaded, setLoaded] = useState(0)
-  const [isFileValid, setIsFileValid] = useState(false)
+  //const [isFileValid, setIsFileValid] = useState(false)
   const [loadingFile, setLoadingFile] = useState(false)
-  const [message, setMessage] = useState({ body: '', classname: '' })
+  //const [message, setMessage] = useState({ body: '', classname: '' })
   const [valueInputAdd, setValueInputAdd] = useState('')
-  const [isExpPage, setIsExpPage] = useState(false)
 
-  // We use useImperativeHandle hook to let father access to properties and methods taking a ref prop
-  // useImperativeHandle(ref, () => ({
-  //   onClickHandler(ele, id) {
-  //     onClickHandlerUploadFile(ele, id)
-  //   }
-  // }))
-
-  useEffect(() => {
-    if (window.location.pathname.includes('experiences')) {
-      setIsExpPage(true)
-    }
-  }, [])
-
-  const handleChangeTitle = (event: React.FormEvent<HTMLInputElement>) => {
-    const target = event.currentTarget
+  const handleChangeTitle = (e: FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
     if (target) setValueInputAdd(target.value)
   }
 
-  const onChangeHandlerFile = e => {
-    const file = e.target.files[0]
-    if (checkFileSize(file)) {
-      setSelectedFile(file)
-      setLoaded(0)
-      !isImageWithTitle && uploadImage(file)
-    } else {
-      console.log('Error: file too much big')
-      setMessage({ body: `Error size`, classname: 'msg_error' })
-      setSelectedFile(null)
+  const onChangeHandlerFile = (e: FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget
+    if (target) {
+      const file = target.files[0]
+      if (checkFileSize(file)) {
+        setSelectedFile(file)
+        setLoaded(0)
+        !isImageWithTitle && uploadImage(file)
+      } else {
+        console.log('Error: file too much big')
+        //setMessage({ body: `Error size`, classname: 'msg_error' })
+        setSelectedFile(null)
+      }
     }
   }
 
-  const uploadImage = (file) => {
+  const uploadImage = (file: File) => {
     const data = new FormData()
     data.append('file', file)
     isImageWithTitle && data.append('title', valueInputAdd)
@@ -70,11 +58,11 @@ const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }) =>
         setSelectedFile(null)
         setLoadingFile(false)
         isImageWithTitle && fetch_images()
-        setMessage({ body: `Image uploaded!`, classname: 'msg_ok' })
+        //setMessage({ body: `Image uploaded!`, classname: 'msg_ok' })
       })
       .catch(err => {
         console.log(err)
-        setMessage({ body: `upload fail`, classname: 'msg_error' })
+        //setMessage({ body: `upload fail`, classname: 'msg_error' })
       })
   }
 

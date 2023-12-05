@@ -3,38 +3,40 @@ import axios from 'axios'
 import { sortBy } from "lodash"
 import Moment from 'react-moment'
 import { MdDelete } from 'react-icons/md'
+import { useAppDispatch, useAppSelector } from '../hooks/useDispatchSelector'
+import { Comment, fetchComments, commentsSelector } from '../store/slice-comments'
 import { URL } from '../config'
 import Pagination from '../components/common/Pagination'
 import Msgbox from '../components/common/Msgbox'
 
 const Comments = () => {
-  const [comments, setComments] = useState([])
-  const [message, setMessage] = useState({ body: '', classname: '' })
+// fetch Comments
+const [comments, setComments] = useState<Array<Comment>>([])
+const [loading, setLoading] = useState<boolean>(false)
+const [message, setMessage] = useState({ body: '', classname: '' })
+const [error, setError] = useState<string | undefined>(undefined)
+const selectedCats = useAppSelector(commentsSelector)
+const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    getComments()
-  }, [])
+useEffect(() => {
+  setLoading(selectedCats.loading)
+  setError(selectedCats.error)
+  setComments(selectedCats.comments)
+}, [selectedCats])
 
-  const getComments = async () => {
-    let url = `${URL}/admin/comments`
-    try {
-      const res = await axios.get(url)
-      let data = res.data
-      let tempComms = []
-      for (let ele of data) {
-        tempComms.push(ele)
-      }
-      setComments(tempComms)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+function handleFetchCats() {
+  dispatch(fetchComments())
+}
 
-  const onClickDelete = async (id) => {
+useEffect(() => {
+  handleFetchCats()
+}, [])
+
+  const onClickDelete = async (id: string) => {
     try {
       let url = `${URL}/admin/comments/delete`
       await axios.post(url, { _id: id })
-      getComments()
+      handleFetchCats()
       setMessage({ body: `Comment deleted!`, classname: 'msg_ok' })
     } catch (error) {
       console.log(error)
@@ -65,8 +67,8 @@ const Comments = () => {
           <div className="tCol w10 center"><span><strong>Action</strong></span></div>
         </div>
         {
-          currentComments.map((ele, i) => {
-            return <div className="tGroup" key={i}>
+          !loading && currentComments.map((ele) => {
+            return <div className="tGroup" key={ele._id}>
               <div className="tRow">
                 <div className="tCol">
                   <span>{ele.user || 'Not registered'}</span>
@@ -91,6 +93,7 @@ const Comments = () => {
             </div>
           })
         }
+        {error}
       </div>
     </div>
 

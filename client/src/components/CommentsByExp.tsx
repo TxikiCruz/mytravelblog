@@ -1,6 +1,11 @@
 import Moment from 'react-moment'
+import { Comment } from '../store/slice-comments'
 
-const CommentsByExp = ({ comments }) => {
+type PropsComments = {
+  comments: Array<Comment>
+}
+
+const CommentsByExp = ({ comments }: PropsComments) => {
 
   return <aside className="comments_module">
     <div className="top">
@@ -10,8 +15,8 @@ const CommentsByExp = ({ comments }) => {
     {comments.length > 0 ?
       <ul className="list">
         {
-          comments.map((ele, i) => {
-            return <li key={`comment-${i}`}>
+          comments.map((ele) => {
+            return <li key={`${ele._id}`}>
               <p className="comment">"{ele.content}"</p>
               <p className="info">
                 <span className="user">{ele.user}</span>

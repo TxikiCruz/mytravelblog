@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 import { MdStar, MdStarBorder } from 'react-icons/md'
 import { URL } from '../config'
+import { Contexts } from '../App'
 import Msgbox from './common/Msgbox'
 
-const Stars = ({ exp, user }) => {
+type PropsStars = {
+  exp: string
+}
+
+const Stars = ({ exp }: PropsStars) => {
+  const { user } = useContext(Contexts)
   const [message, setMessage] = useState({ body: '', classname: '' })
   const [starHover, setStarHover] = useState(-1)
   const stars = []

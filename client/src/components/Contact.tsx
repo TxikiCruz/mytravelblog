@@ -6,7 +6,7 @@ import Msgbox from './common/Msgbox'
 const Contact = () => {
   const [message, setMessage] = useState({ body: '', classname: '' })
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault()
     const nameInput = event.target.elements.name
     const emailInput = event.target.elements.email

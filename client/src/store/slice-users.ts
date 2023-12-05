@@ -1,12 +1,26 @@
 // A slice is a portion of the Redux store that is responsible for managing a specific piece of state
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import axios from 'axios'
+import { RootState } from './store'
 import { URL } from '../config'
 
-export interface User {
+export interface UserType {
+  readonly _id: string,
   email: string,
   password: string,
   role?: string
+}
+
+export interface UserState {
+  loading: boolean
+  users: Array<UserType>
+  error: string | undefined
+}
+
+const initialState: UserState = {
+  users: [],
+  loading: false,
+  error: undefined,
 }
 
 export const fetchUsers = createAsyncThunk(
@@ -17,33 +31,29 @@ export const fetchUsers = createAsyncThunk(
   },
 )
 
-const initialState = {
-  users: [] as User[],
-  status: 'idle',
-  error: null,
-}
-
-export const UsersSlice = createSlice({
+export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
-        state.status = 'loading'
+        //state.status = 'loading'
+        state.loading = true
       })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+      .addCase(fetchUsers.fulfilled, (state, action: PayloadAction<Array<UserType>>) => {
+        //state.status = 'succeeded'
+        state.loading = false
         state.users = action.payload
       })
       .addCase(fetchUsers.rejected, (state, action) => {
-        state.status = 'failed'
+        //state.status = 'failed'
+        state.loading = false
+        state.users = []
         state.error = action.error.message
       })
   },
 })
 
-export const getUsers = (state) => state.users.users
-export const getUsersStatus = (state) => state.users.status
-export const getUsersError = (state) => state.users.error
-export default UsersSlice.reducer
+export const usersSelector = (state: RootState) => state.usersReducer
+export default usersSlice.reducer

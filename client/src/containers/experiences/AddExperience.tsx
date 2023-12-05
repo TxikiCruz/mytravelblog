@@ -1,23 +1,32 @@
-import { useState } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
 import axios from 'axios'
 import { URL } from '../../config'
+import { Experience } from '../../store/slice-experiences'
 import SelectCategories from '../../components/common/SelectCategories'
-import Msgbox from '../../components/common/Msgbox'
+import Msgbox, { ParamsMsgBox } from '../../components/common/Msgbox'
 import ImageUpload from '../ImageUpload'
 
-const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }) => {
-  const [values, setValues] = useState({ title: '', category: '', content: '' })
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [selectedFilename, setSelectedFilename] = useState(null)
-  const [isFileValid, setIsFileValid] = useState(false)
-  const [loadingFile, setLoadingFile] = useState(false)
-  const [message, setMessage] = useState({ body: '', classname: '' })
+type PropsAddExperience = {
+  user: string
+  handleFetchExperiences: () => void
+  isFormAddVisible: boolean
+}
 
-  const handleChangeNew = e => {
-    setValues({ ...values, [e.target.name]: e.target.value })
+const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }: PropsAddExperience) => {
+  const [values, setValues] = useState<Experience>()
+  //const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedFilename, setSelectedFilename] = useState(null)
+  //const [isFileValid, setIsFileValid] = useState(false)
+  //const [loadingFile, setLoadingFile] = useState(false)
+  const loadingFile = false
+  const [message, setMessage] = useState<ParamsMsgBox>({body: '', classname: ''})
+
+  const handleChangeNew = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = e.currentTarget
+    if (target) setValues({ ...values, [target.name]: target.value })
   }
 
-  const handleSubmitNew = async (e) => {
+  const handleSubmitNew = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       if (!loadingFile) {
@@ -33,7 +42,6 @@ const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }) => {
       }
     } catch (error) {
       console.log(error)
-      //setMessage({ body: 'Write a title and a category', classname: 'msg_error' })
     }
   }
 
