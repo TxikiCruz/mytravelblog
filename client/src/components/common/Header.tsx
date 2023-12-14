@@ -12,7 +12,7 @@ const Header = ({ isLoggedIn, logout }: PropsHeader) => {
       <div className="flex">
         <div className="header_left">
           <NavLink to={"/"} className="header_logo">
-            <h1 className="header_title">MyTravelBlog</h1>
+            <h1 className="header_title">ScoreTravelsBlog</h1>
           </NavLink>
         </div>
 

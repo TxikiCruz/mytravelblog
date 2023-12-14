@@ -6,7 +6,7 @@ import { MdDelete, MdEdit, MdClose, MdCheckCircle } from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../../hooks/useDispatchSelector'
 import { Experience, fetchExperiences, experiencesSelector } from '../../store/slice-experiences'
 import { URL } from '../../config'
-import { Contexts } from '../../App'
+import { MyGlobalContext } from '../../App'
 import AddExperience from './AddExperience'
 import SelectCategories from '../../components/common/SelectCategories'
 import Pagination from '../../components/common/Pagination'
@@ -15,7 +15,7 @@ import ImageUpload from '../ImageUpload'
 import thumb from '../../assets/images/thumb.png'
 
 const Experiences = () => {
-  const { user } = useContext(Contexts)
+  const { user } = useContext(MyGlobalContext)
   const [newValues, setNewValues] = useState<Experience>()
   const [selectedFilename, setSelectedFilename] = useState(null)
   const [message, setMessage] = useState({ body: '', classname: '' })

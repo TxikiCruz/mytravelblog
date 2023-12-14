@@ -10,7 +10,7 @@ import Score from '../Score'
 import Stars from '../Stars'
 import Msgbox from '../common/Msgbox'
 import Spinner from '../common/Spinner'
-import { Contexts } from '../../App'
+import { MyGlobalContext } from '../../App'
 
 type PropsExperience = {
   user: string
@@ -52,7 +52,7 @@ const Experience = ({ user }: PropsExperience) => {
   }
 
   // save experience title for Breadcrumbs
-  const { setTitleExperience }: any = useContext(Contexts)
+  const { setTitleExperience }: any = useContext(MyGlobalContext)
 
   useEffect(() => {
     if (experience?.title) {

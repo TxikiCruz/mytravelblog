@@ -23,9 +23,6 @@
   - Mongoose
 
 ## TODO tasks
-  - Select category default value
-  - Al recargar una página de Admin lleva a Login
-  - Resolver errores pendientes Typescript
   - Añadir tests con Jest
   - Responsive design
   - Mejorar Login / Register
@@ -33,6 +30,7 @@
   - Role admin/author
   - Arreglar formulario Contacto (Nodemailer)
   - Revisar buscador
+  - Logo animado Header
   - useMemo con useContext en App
   - Revisar errores para ejecutar npm run build
   - Mensajes popup solo aparece la primera acción

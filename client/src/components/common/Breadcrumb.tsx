@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Contexts } from '../../App'
+import { MyGlobalContext } from '../../App'
 
 export type ParamsBreadcrumb = {
   page: string
 }
 
 const Breadcrumb = ({ page }: ParamsBreadcrumb) => {
-  const { titleExperience }: any = useContext(Contexts)
+  const { titleExperience }: any = useContext(MyGlobalContext)
 
   return <div className="breadcrumbs">
     <div className="container">

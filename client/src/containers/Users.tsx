@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, ChangeEvent } from 'react'
 import axios from 'axios'
 import { NavLink } from 'react-router-dom'
-import { Contexts } from '../App'
+import { MyGlobalContext } from '../App'
 import { MdDelete, MdEdit, MdClose, MdCheckCircle } from 'react-icons/md'
 import { URL } from '../config'
 import Msgbox from '../components/common/Msgbox'
@@ -12,7 +12,7 @@ const Users = () => {
   const [message, setMessage] = useState({ body: '', classname: '' })
   const [updateActive, setUpdateActive] = useState(null)
 
-  const { setRole } = useContext(Contexts)
+  const { setRole } = useContext(MyGlobalContext)
 
   const typesUser = [
     { type: 'admin' },

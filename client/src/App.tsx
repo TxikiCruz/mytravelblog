@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useMemo } from 'react'
+import { useState, useEffect, createContext, useContext, useMemo } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { URL } from './config'
@@ -23,7 +23,27 @@ import Images from './containers/Images'
 import ScrollToTop from './components/common/ScrollToTop'
 import './assets/sass/main.scss'
 
-export const Contexts = createContext({})
+export type GlobalContent = {
+  token: string
+  isLoggedInValue: any
+  user: string
+  role: string
+  setRole:(c: string) => void
+  titleExperience: string
+  setTitleExperience:(c: string) => void
+}
+
+export const MyGlobalContext = createContext<GlobalContent>({
+  token: '',
+  isLoggedInValue: null,
+  user: '',
+  role: '',
+  setRole: () => {},
+  titleExperience: '',
+  setTitleExperience: () => {}
+})
+
+export const useGlobalContext = () => useContext(MyGlobalContext)
 
 function App() {
   const token = JSON.parse(localStorage.getItem('token'))
@@ -43,8 +63,10 @@ function App() {
     try {
       axios.defaults.headers.common['Authorization'] = token
       const response = await axios.post(`${URL}/users/verify_token`)
-      setRole(response.data.succ.role)
-      setUser(response.data.succ.email)
+      if (response.data.succ) {
+        setRole(response.data.succ.role)
+        setUser(response.data.succ.email)
+      }
       return response.data.ok ? setIsLoggedIn(true) : setIsLoggedIn(false)
     }
     catch (error) {
@@ -89,12 +111,6 @@ function App() {
     }
   }, [location, page])
 
-  // type GlobalContent = {
-  //   isLoggedInValue: boolean
-  //   titleExperience: string
-  //   setTitleExperience: (c: string) => void
-  // }
-
   const contextValues = {
     token,
     isLoggedInValue, 
@@ -106,7 +122,7 @@ function App() {
   }
 
   return (
-    <Contexts.Provider value={contextValues}>
+    <MyGlobalContext.Provider value={contextValues}>
       <ScrollToTop />
       <Header isLoggedIn={isLoggedIn} logout={logout} />
 
@@ -165,7 +181,7 @@ function App() {
       </main>
 
       <Footer />
-    </Contexts.Provider>
+    </MyGlobalContext.Provider>
   )
 }
 

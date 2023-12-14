@@ -1,7 +1,7 @@
 //import { Outlet } from 'react-router-dom'
 import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Contexts } from '../App'
+import { MyGlobalContext } from '../App'
 import NavAdmin from '../containers/NavAdmin'
 
 type ParamsAdminLayout = {
@@ -9,7 +9,7 @@ type ParamsAdminLayout = {
 }
 
 const AdminLayout = ({ children }: ParamsAdminLayout) => {
-  const { token, isLoggedInValue } = useContext(Contexts)
+  const { token, isLoggedInValue } = useContext(MyGlobalContext)
 
   return <div className="page admin">
       <div className="container">
