@@ -1,6 +1,11 @@
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
+import type { InlineConfig } from 'vitest'
 import react from '@vitejs/plugin-react'
 import sass from 'sass'
+
+interface VitestConfigExport extends UserConfig {
+  test: InlineConfig
+}
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
@@ -19,4 +24,9 @@ export default defineConfig({
     open: true,
     host: true
   },
-})
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.js",
+  }
+} as VitestConfigExport)
