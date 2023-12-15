@@ -28,7 +28,7 @@
   - Mejorar Login / Register
   - Register si estás logueado debe llevar al nuevo usuario
   - Role admin/author
-  - Arreglar formulario Contacto (Nodemailer)
+  - Arreglar formulario Contacto (Nodemailer) -> Probar resend app
   - Revisar buscador
   - Logo animado Header
   - useMemo con useContext en App
