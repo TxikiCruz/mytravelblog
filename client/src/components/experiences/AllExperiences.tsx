@@ -60,7 +60,9 @@ const AllExperiences = () => {
             })
           }
         </div>
-        {error}
+
+        <div className="msg_error" role="alert">{error}</div>
+
         {
           experiences.length > 0 && experiences.length > itemsPerPage &&
 

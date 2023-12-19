@@ -21,5 +21,14 @@
   .form_contact {
     max-width: 40rem;
     margin: 0 auto;
+    text-align: left;
+
+    .form_group {
+      margin-bottom: 1rem;
+
+      .form_control {
+        margin-bottom: 0;
+      }
+    }
   }
 }

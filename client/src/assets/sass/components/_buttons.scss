@@ -21,9 +21,16 @@ button {
 
   &.active,
   &:hover {
-    border-color: $color2;
-    background-color: $colorWhite;
-    color: $color1;
+    &:not([disabled]) {
+      border-color: $color2;
+      background-color: $colorWhite;
+      color: $color1;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: initial;
   }
 
   &_link {

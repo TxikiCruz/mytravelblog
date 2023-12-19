@@ -23,7 +23,7 @@
   - Mongoose
 
 ## TODO tasks
-  - Añadir tests con Jest
+  - Añadir tests Jest/Vitest
   - Responsive design
   - Mejorar Login / Register
   - Register si estás logueado debe llevar al nuevo usuario
@@ -32,7 +32,7 @@
   - Revisar buscador
   - Logo animado Header
   - useMemo con useContext en App
-  - Revisar errores para ejecutar npm run build
+  - npm run build
   - Mensajes popup solo aparece la primera acción
   - Al arrancar el proyecto no se cargan los datos si no recargas el browser
   - Mejorar diseño
@@ -43,8 +43,9 @@
   - Meter más contenido
   - Añadir opción subir múltiples imágenes en Admin/images con Multer
   - ImageUpload no funciona añadiendo un título a la imagen
+  - Lazy load images
   - Añadir minijuego Phaser
-  - Añadir alguna gráfica
+  - Añadir algún chart
   - Añadir mapa interactivo, por ejemplo con los países más visitados (probar Leaflet)
   - Probar Zustand
   - Añadir vídeo a Carousel
@@ -60,5 +61,4 @@
   - Paginación dinámica
   - Añadir algo de IA con alguna api
   - Definir nomenclatura tipo BEM para css
-  - Definir guía de estilos
   - Añadir nombre a usuarios registrados
