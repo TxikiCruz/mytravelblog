@@ -4,6 +4,11 @@ button {
   appearance: none;
   border: 0;
   outline: 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 .btn {
