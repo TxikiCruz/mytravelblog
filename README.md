@@ -1,6 +1,6 @@
 # UI-FRONT
 
-> Personal project for testing Front technologies
+> Personal project for testing Front technologies (under construction...)
 
 ## Env Setup
   - node: `16.17.0`
