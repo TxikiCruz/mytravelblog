@@ -29,6 +29,7 @@ const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible, setIsFo
 
   const handleSubmitNew = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log(user)
     try {
       if (!loadingFile) {
         await axios.post(`${URL}/admin/experiences/add`, {

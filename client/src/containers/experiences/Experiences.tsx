@@ -15,7 +15,7 @@ import ImageUpload from '../ImageUpload'
 import thumb from '../../assets/images/thumb.png'
 
 const Experiences = () => {
-  const { user } = useContext(MyGlobalContext)
+  const { user, role } = useContext(MyGlobalContext)
   const [newValues, setNewValues] = useState<Experience>()
   const [selectedFilename, setSelectedFilename] = useState(null)
   const [message, setMessage] = useState({ body: '', classname: '' })
@@ -72,28 +72,28 @@ const Experiences = () => {
   const onClickShowUpdate = (idx: string) => {
     setUpdateActive(idx)
     let idExp = experiences.findIndex(e => e._id === idx)
-    setNewValues({ 
+    setNewValues({
       _id: idx,
-      user: experiences[idExp].user, 
-      image: experiences[idExp].image, 
-      title: experiences[idExp].title, 
-      category: experiences[idExp].category, 
-      content: experiences[idExp].content, 
-      score: experiences[idExp].score 
+      user: experiences[idExp].user,
+      image: experiences[idExp].image,
+      title: experiences[idExp].title,
+      category: experiences[idExp].category,
+      content: experiences[idExp].content,
+      score: experiences[idExp].score
     })
   }
 
   const updateExperience = async (id: string) => {
     try {
       let url = `${URL}/admin/experiences/update`
-      await axios.post(url, { 
-        _id: id, 
-        user: newValues.user, 
-        image: selectedFilename || newValues.image, 
-        title: newValues.title, 
-        category: newValues.category, 
-        content: newValues.content, 
-        score: newValues.score 
+      await axios.post(url, {
+        _id: id,
+        user: user,
+        image: selectedFilename || newValues.image,
+        title: newValues.title,
+        category: newValues.category,
+        content: newValues.content,
+        score: newValues.score
       })
       handleFetchExperiences()
       setUpdateActive(null)
@@ -112,6 +112,9 @@ const Experiences = () => {
   const currentExps = sortedExps.slice(indexOfFirstItem, indexOfLastItem)
   const paginate = (i: number) => setCurrentPage(i)
 
+  // experiences by user
+  const expsByUser = sortedExps.filter((exp) => exp.user === user)
+
   return <div className="content exps">
     <div className="content_top">
       <h2 className="content_top_title">Experiences</h2>
@@ -121,14 +124,15 @@ const Experiences = () => {
       </button>
     </div>
 
-    <AddExperience 
-      user={user} 
-      handleFetchExperiences={handleFetchExperiences} 
-      isFormAddVisible={isFormAddVisible} 
+    <AddExperience
+      user={user}
+      handleFetchExperiences={handleFetchExperiences}
+      isFormAddVisible={isFormAddVisible}
       setIsFormAddVisible={setIsFormAddVisible}
     />
 
-    <form className="form">
+    {role === 'author' &&
+      <form className="form">
       <div className="table_scroll">
         <div className="table">
           <div className="tGroup tHead">
@@ -144,7 +148,7 @@ const Experiences = () => {
             </div>
           </div>
           {
-            !loading && currentExps.map((ele) => {
+            !loading && expsByUser.map((ele) => {
               return <div className="tGroup" key={ele._id}>
                 <div className="tRow">
                   <div className="tCol">
@@ -218,19 +222,118 @@ const Experiences = () => {
           }
         </div>
       </div>
-      
+
       <Msgbox body={message.body} classname={message.classname} />
     </form>
+    }
 
-    {
-      experiences.length > 0 && experiences.length > itemsPerPage &&
+    {role === 'admin' &&
+      <>
+        <form className="form">
+          <div className="table_scroll">
+            <div className="table">
+              <div className="tGroup tHead">
+                <div className="tRow">
+                  <div className="tCol w7_5"><span><strong>Date</strong></span></div>
+                  <div className="tCol w10"><span><strong>User</strong></span></div>
+                  <div className="tCol w15"><span><strong>Image</strong></span></div>
+                  <div className="tCol w10"><span><strong>Category</strong></span></div>
+                  <div className="tCol w15"><span><strong>Title</strong></span></div>
+                  <div className="tCol w27_5"><span><strong>Content</strong></span></div>
+                  <div className="tCol w7_5 center"><span><strong>Score</strong></span></div>
+                  <div className="tCol w10 center"><span><strong>Action</strong></span></div>
+                </div>
+              </div>
+              {
+                !loading && currentExps.map((ele) => {
+                  return <div className="tGroup" key={ele._id}>
+                    <div className="tRow">
+                      <div className="tCol">
+                        <span><Moment format="YYYY/MM/DD">{ele.date}</Moment></span>
+                      </div>
+                      <div className="tCol ellipsis">
+                        <span>{ele.user}</span>
+                      </div>
+                      <div className="tCol thumb">
+                        <img src={ele.image ? `${URL}/static/images/${ele.image}` : thumb} alt={ele.title} />
+                      </div>
+                      <div className="tCol">
+                        <span>{ele.category}</span>
+                      </div>
+                      <div className="tCol">
+                        <span>{ele.title}</span>
+                      </div>
+                      <div className="tCol cont">
+                        <span>{ele.content}</span>
+                      </div>
+                      <div className="tCol center">
+                        <span>{ele.score}</span>
+                      </div>
+                      <div className="tCol center">
+                        <div className="icons">
+                          {updateActive !== ele._id ?
+                            <button type="button" className="btn_action" onClick={() => onClickShowUpdate(ele._id)}>
+                              <MdEdit />
+                            </button>
+                            : null}
+                          <button type="button" className="btn_action" onClick={() => onClickDelete(ele._id)}>
+                            <MdDelete />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
 
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        totalItems={experiences.length}
-        paginate={paginate}
-      />
+                    {updateActive === ele._id ?
+                      <div className="tRow sup">
+                        <div className="tCol"></div>
+                        <div className="tCol"></div>
+                        <div className="tCol">
+                          <ImageUpload setSelectedFilename={setSelectedFilename} isImageWithTitle={false} />
+                        </div>
+                        <div className="tCol">
+                          <SelectCategories handleChange={handleChangeUpdate} selected={ele.category} />
+                        </div>
+                        <div className="tCol">
+                          <input type="text" name="title" className="form_control" placeholder="Write your title" defaultValue={ele.title} onChange={handleChangeUpdate} />
+                        </div>
+                        <div className="tCol">
+                          <textarea name="content" className="form_control" placeholder="Write your content" defaultValue={ele.content} onChange={handleChangeUpdate} />
+                        </div>
+                        <div className="tCol score center">
+                          <input type="text" name="score" className="form_control" placeholder="" defaultValue={ele.score} onChange={handleChangeUpdate} />
+                        </div>
+                        <div className="tCol">
+                          <div className="icons">
+                            <button type="button" className="btn_action green" onClick={() => updateExperience(ele._id)}>
+                              <MdCheckCircle />
+                            </button>
+                            <button type="button" className="btn_action" onClick={onClickClose}>
+                              <MdClose />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      : null}
+                  </div>
+                })
+              }
+            </div>
+          </div>
+
+          <Msgbox body={message.body} classname={message.classname} />
+        </form>
+
+        {
+          experiences.length > 0 && experiences.length > itemsPerPage &&
+
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            totalItems={experiences.length}
+            paginate={paginate}
+          />
+        }
+      </>
     }
 
     {error}
