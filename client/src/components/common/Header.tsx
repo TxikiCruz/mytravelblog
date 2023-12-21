@@ -9,7 +9,7 @@ type PropsHeader = {
 const Header = ({ isLoggedIn, logout }: PropsHeader) => {
   return <header className="header">
     <div className="container">
-      <div className="flex">
+      <div className="header_flex">
         <div className="header_left">
           <NavLink to={"/"} className="header_logo">
             <h1 className="header_title">ScoreTravelsBlog</h1>

@@ -112,7 +112,7 @@
         height: 3.4rem;
         background-color: $color2;
         font-size: 1.5rem;
-        line-height: inherit;
+        line-height: 0.5;
         border: 0;
         padding: 0.6rem 2rem;
         margin-left: 1rem;
@@ -122,6 +122,17 @@
 
       &:hover {
         box-shadow: none;
+      }
+
+      &.flex {
+        display: flex;
+        align-items: center;
+        line-height: 1;
+      }
+
+      .user {
+        font-size: 1.3rem;
+        margin-right: 0.75rem;
       }
     }
   }

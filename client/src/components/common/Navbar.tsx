@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef, MouseEvent } from 'react'
+import { useState, useEffect, useRef, useContext, MouseEvent } from 'react'
 import { useNavigate, NavLink } from 'react-router-dom'
 import { MdMenu, MdOutlineLogout, MdOutlinePermIdentity } from 'react-icons/md'
+import { MyGlobalContext } from '../../App'
 import SearchForm from '../search/SearchForm.js'
 import { useResizer } from '../../hooks/useResizer'
 import useOutsideClick from '../../hooks/useOutsideClick'
@@ -14,6 +15,7 @@ type PropsNavbar = {
 const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
   const refNav = useRef()
   const refNavAdmin = useRef()
+  const { user } = useContext(MyGlobalContext)
   const [isOpenNav, setIsOpenNav] = useState(false)
   const [isOpenNavAdmin, setIsOpenNavAdmin] = useState(false)
   const [message, setMessage] = useState({ body: '', classname: '' })
@@ -75,7 +77,7 @@ const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
       <SearchForm />
 
       <div ref={refNavAdmin} className="navbar_login">
-        <button className="btn_icon btn_login" onClick={openNavAdmin}>
+        <button className={`btn_icon btn_login ${isLoggedIn && 'flex'}`} onClick={openNavAdmin}>
           {
             !isLoggedIn && !isMobile && 'Sign In'
           }
@@ -83,7 +85,10 @@ const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
             !isLoggedIn && isMobile && <MdOutlinePermIdentity />
           }
           {
-            isLoggedIn && <MdOutlineLogout />
+            isLoggedIn && <>
+              <span className="user">{user}</span>
+              <MdOutlineLogout />
+            </>
           }
         </button>
 
