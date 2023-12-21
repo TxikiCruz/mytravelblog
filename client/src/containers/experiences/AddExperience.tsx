@@ -10,16 +10,17 @@ type PropsAddExperience = {
   user: string
   handleFetchExperiences: () => void
   isFormAddVisible: boolean
+  setIsFormAddVisible: (c: boolean) => void
 }
 
-const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }: PropsAddExperience) => {
+const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible, setIsFormAddVisible }: PropsAddExperience) => {
   const [values, setValues] = useState<Experience>()
   //const [selectedFile, setSelectedFile] = useState(null)
   const [selectedFilename, setSelectedFilename] = useState(null)
   //const [isFileValid, setIsFileValid] = useState(false)
   //const [loadingFile, setLoadingFile] = useState(false)
   const loadingFile = false
-  const [message, setMessage] = useState<ParamsMsgBox>({body: '', classname: ''})
+  const [message, setMessage] = useState<ParamsMsgBox>({ body: '', classname: '' })
 
   const handleChangeNew = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = e.currentTarget
@@ -30,49 +31,58 @@ const AddExperience = ({ user, handleFetchExperiences, isFormAddVisible }: Props
     e.preventDefault()
     try {
       if (!loadingFile) {
-        await axios.post(`${URL}/admin/experiences/add`, { 
-          user: user, 
-          title: values.title, 
-          category: values.category, 
-          image: selectedFilename, 
+        await axios.post(`${URL}/admin/experiences/add`, {
+          user: user,
+          title: values.title,
+          category: values.category,
+          image: selectedFilename,
           content: values.content
         })
         setMessage({ body: `New Experience added!`, classname: 'msg_ok' })
         handleFetchExperiences()
+        setIsFormAddVisible(false)
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  return <div className="content_add">
-  {isFormAddVisible &&
-    <form className="form" onSubmit={handleSubmitNew}>
-      <input 
-        type="text" 
-        name="title" 
-        className="form_control" 
-        placeholder="Write your title" 
-        onChange={handleChangeNew} 
-      />
-      <textarea 
-        name="content" 
-        className="form_control" 
-        placeholder="Write your content" 
-        onChange={handleChangeNew} 
-        maxLength={500}
-      />
+  return <>
+    {isFormAddVisible &&
+      <div className="content_add">
+        <h3 className="content_add_title">Fill in the fields and <strong>Add a new experience</strong></h3>
 
-      <SelectCategories handleChange={handleChangeNew} />
+        <form className="form" onSubmit={handleSubmitNew}>
+          <input
+            type="text"
+            name="title"
+            className="form_control"
+            placeholder="*Write your title"
+            onChange={handleChangeNew}
+            required
+          />
+          <textarea
+            name="content"
+            className="form_control"
+            placeholder="*Write your content"
+            onChange={handleChangeNew}
+            maxLength={2000}
+            required
+          />
 
-      <ImageUpload setSelectedFilename={setSelectedFilename} isImageWithTitle={false} />
+          <ImageUpload setSelectedFilename={setSelectedFilename} isImageWithTitle={false} />
 
-      <button className="btn btn_admin">Add</button>
-    </form>
-  }
+          <div className="form_group flex">
+            <SelectCategories handleChange={handleChangeNew} />
 
-  <Msgbox body={message.body} classname={message.classname} />
-</div>
+            <button className="btn btn_admin">Add Experience</button>
+          </div>
+        </form>
+      </div>
+    }
+
+    <Msgbox body={message.body} classname={message.classname} />
+  </>
 }
 
 export default AddExperience

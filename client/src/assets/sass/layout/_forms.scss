@@ -51,44 +51,46 @@ textarea {
 
 // Custom checkboxes
 input[type="checkbox"] {
-  padding: 0;
-  height: initial;
-  width: initial;
-  margin-bottom: 0;
-  display: none;
-  cursor: pointer;
-
-  +label {
-    position: relative;
-    font-size: 1.3rem;
-    line-height: 1;
+  &.cb_custom {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
     cursor: pointer;
 
-    &::before {
-      content:'';
-      -webkit-appearance: none;
-      background-color: transparent;
-      border: 0.15rem solid $color4;
-      padding: 1rem;
-      display: inline-block;
+    +label {
       position: relative;
-      vertical-align: middle;
-      margin-right: 1rem;
+      font-size: 1.3rem;
+      line-height: 1;
       cursor: pointer;
+
+      &::before {
+        content:'';
+        -webkit-appearance: none;
+        background-color: transparent;
+        border: 0.15rem solid $color4;
+        padding: 1rem;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        margin-right: 1rem;
+        cursor: pointer;
+      }
     }
-  }
-  
-  &:checked + label::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0.2rem;
-    left: 0.9rem;
-    width: 0.6rem;
-    height: 1.4rem;
-    border: solid $color2;
-    border-width: 0 0.2rem 0.2rem 0;
-    transform: rotate(45deg);
+    
+    &:checked + label::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0.2rem;
+      left: 0.9rem;
+      width: 0.6rem;
+      height: 1.4rem;
+      border: solid $color2;
+      border-width: 0 0.2rem 0.2rem 0;
+      transform: rotate(45deg);
+    }
   }
 }
 

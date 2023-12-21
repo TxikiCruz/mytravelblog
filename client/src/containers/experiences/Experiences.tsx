@@ -117,11 +117,16 @@ const Experiences = () => {
       <h2 className="content_top_title">Experiences</h2>
 
       <button type="button" className="btn btn_admin" onClick={showFormAdd}>
-        {!isFormAddVisible ? 'Add new experience' : 'Close'}
+        {!isFormAddVisible ? 'Add new experience' : 'Close Add'}
       </button>
     </div>
 
-    <AddExperience user={user} handleFetchExperiences={handleFetchExperiences} isFormAddVisible={isFormAddVisible} />
+    <AddExperience 
+      user={user} 
+      handleFetchExperiences={handleFetchExperiences} 
+      isFormAddVisible={isFormAddVisible} 
+      setIsFormAddVisible={setIsFormAddVisible}
+    />
 
     <form className="form">
       <div className="table_scroll">

@@ -34,7 +34,7 @@ const SelectCategories = ({ handleChange, selected }: PropsSelectCategories) => 
   }, [])
 
   return <select name="category" className="form_control" onChange={handleChange} defaultValue={selected}>
-    <option>{selected || "Category"}</option>
+    <option>{selected || "*Category"}</option>
     {
       !loading && cats?.length > 0 && cats.map((ele: Cat) => {
         return <option key={ele._id} value={ele.name}>

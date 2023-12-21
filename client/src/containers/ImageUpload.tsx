@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react'
 import axios from 'axios'
 import { checkFileSize } from '../utils/utils'
 import { URL } from '../config'
+import Msgbox, { ParamsMsgBox } from '../components/common/Msgbox'
 
 type propsImageUpload = {
   setSelectedFilename?: (c: string) => void
@@ -14,7 +15,7 @@ const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }: pr
   const [loaded, setLoaded] = useState(0)
   //const [isFileValid, setIsFileValid] = useState(false)
   const [loadingFile, setLoadingFile] = useState(false)
-  //const [message, setMessage] = useState({ body: '', classname: '' })
+  const [message, setMessage] = useState<ParamsMsgBox>({body: '', classname: ''})
   const [valueInputAdd, setValueInputAdd] = useState('')
 
   const handleChangeTitle = (e: FormEvent<HTMLInputElement>) => {
@@ -32,7 +33,7 @@ const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }: pr
         !isImageWithTitle && uploadImage(file)
       } else {
         console.log('Error: file too much big')
-        //setMessage({ body: `Error size`, classname: 'msg_error' })
+        setMessage({ body: `file too much big. Max 1MB`, classname: 'msg_error' })
         setSelectedFile(null)
       }
     }
@@ -58,7 +59,7 @@ const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }: pr
         setSelectedFile(null)
         setLoadingFile(false)
         isImageWithTitle && fetch_images()
-        //setMessage({ body: `Image uploaded!`, classname: 'msg_ok' })
+        setMessage({ body: `Image uploaded!`, classname: 'msg_ok' })
       })
       .catch(err => {
         console.log(err)
@@ -99,6 +100,8 @@ const ImageUpload = ({ setSelectedFilename, fetch_images, isImageWithTitle }: pr
         >Upload</button>
       </div>
     }
+
+    <Msgbox body={message.body} classname={message.classname} />
   </div>
 }
 

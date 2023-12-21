@@ -62,7 +62,7 @@ const Contact = () => {
           </div>
 
           <div className="form_group">
-            <input type="checkbox" id="cb_contact" defaultChecked={isChecked} onChange={() => setIsChecked(!isChecked)} />
+            <input type="checkbox" id="cb_contact" className="cb_custom" defaultChecked={isChecked} onChange={() => setIsChecked(!isChecked)} />
             <label htmlFor="cb_contact">Accept terms and conditions</label>
           </div>
     

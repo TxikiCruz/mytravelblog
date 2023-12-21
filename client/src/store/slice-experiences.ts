@@ -7,11 +7,11 @@ export interface Experience {
   _id: string
   user?: string,
   title: string,
-  category?: string,
+  category: string,
   date?: Date,
   year?: number,
   image?: string,
-  content?: string,
+  content: string,
   score?: number
 }
 
