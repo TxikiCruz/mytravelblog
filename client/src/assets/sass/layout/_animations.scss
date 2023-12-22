@@ -1,0 +1,61 @@
+// Login button open
+@keyframes effectButtonDisplay {
+  from {
+    top: 5.7rem;
+  }
+  to {
+    top: 4.7rem;
+  }
+}
+
+// curtain effect when go to Admin
+@keyframes curtain {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+// animation for Admin words
+@keyframes wordLogo1{
+  from{
+    top: -2rem;
+  }
+  to{
+    top: 0;
+  }
+}
+@keyframes wordLogo2{
+  from{
+    top: -2rem;
+  }
+  to{
+    top: 0;
+  }
+}
+@keyframes wordLogo3{
+  from{
+    top: -2rem;
+  }
+  to{
+    top: 0;
+  }
+}
+@keyframes wordLogo4{
+  from{
+    top: -2rem;
+  }
+  to{
+    top: 0;
+  }
+}
+@keyframes wordLogo5{
+  from{
+    top: -2rem;
+  }
+  to{
+    top: 0;
+  }
+}

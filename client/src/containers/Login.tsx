@@ -53,7 +53,7 @@ const Login = ({ login }: PropsLogin) => {
     >
       <input type="text" name="email" className="form_control" placeholder="Write your email" onChange={handleChange} />
       <input type="password" name="password" className="form_control" placeholder="Write your password" onChange={handleChange} />
-      <button className="btn">login</button>
+      <button className="btn" disabled={!values.email || !values.password}>login</button>
     </form>
 
     <Msgbox body={message.body} classname={message.classname} />

@@ -29,7 +29,6 @@
     background-color: $color2;
     padding: 1rem;
     border-radius: 0 0 1rem 1rem;
-    transition: all 0.3s ease-in-out;
     @media (min-width: $screenSm) {
       min-width: 10rem;
       top: 4.7rem;
@@ -38,6 +37,7 @@
     &.open {
       opacity: 1;
       visibility: visible;
+      animation: effectButtonDisplay 250ms linear forwards;
     }
 
     > li {
