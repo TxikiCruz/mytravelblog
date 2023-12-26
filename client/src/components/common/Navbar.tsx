@@ -66,6 +66,7 @@ const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
       <ul className={`navbar_list main ${isOpenNav ? 'open' : ''}`} onClick={() => setIsOpenNav(false)}>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/experiences">Experiences</NavLink></li>
+        <li><NavLink to="/gallery">Gallery</NavLink></li>
         <li><NavLink to="/contact">Contact</NavLink></li>
         {
           isLoggedIn && <li><NavLink to="/admin/experiences">Admin</NavLink></li>

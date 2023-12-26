@@ -46,23 +46,23 @@
         color: $color1;
 
         &.word1 {
-          animation: wordLogo1 250ms forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+          animation: word1 250ms forwards cubic-bezier(0.075, 0.82, 0.165, 1);
           animation-delay: 2s;
         }
         &.word2 {
-          animation: wordLogo2 250ms .25s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+          animation: word2 250ms 0.25s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
           animation-delay: 2.25s;
         }
         &.word3 {
-          animation: wordLogo3 250ms .5s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+          animation: word3 250ms 0.5s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
           animation-delay: 2.5s;
         }
         &.word4 {
-          animation: wordLogo4 250ms .75s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+          animation: word4 250ms 0.75s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
           animation-delay: 2.75s;
         }
         &.word5 {
-          animation: wordLogo5 250ms 1s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+          animation: word5 250ms 1s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
           animation-delay: 3s;
         }
       }

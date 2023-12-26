@@ -59,6 +59,7 @@ const SearchForm = () => {
           name="search" 
           value={value} 
           onChange={handleChange} 
+          autoComplete="off"
         />
 
         <button 

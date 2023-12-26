@@ -19,3 +19,11 @@ export const checkFileSize = (file) => {
   const maxAllowedSize = 1 * 1024 * 1024
   return file.size < maxAllowedSize
 }
+
+// scroll to Top
+export const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  })
+}

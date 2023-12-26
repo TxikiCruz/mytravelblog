@@ -1,10 +1,10 @@
 // Login button open
 @keyframes effectButtonDisplay {
   from {
-    top: 5.7rem;
+    margin-top: 2rem;
   }
   to {
-    top: 4.7rem;
+    margin-top: 0;
   }
 }
 
@@ -19,7 +19,7 @@
 }
 
 // animation for Admin words
-@keyframes wordLogo1{
+@keyframes word1{
   from{
     top: -2rem;
   }
@@ -27,7 +27,7 @@
     top: 0;
   }
 }
-@keyframes wordLogo2{
+@keyframes word2{
   from{
     top: -2rem;
   }
@@ -35,7 +35,7 @@
     top: 0;
   }
 }
-@keyframes wordLogo3{
+@keyframes word3{
   from{
     top: -2rem;
   }
@@ -43,7 +43,7 @@
     top: 0;
   }
 }
-@keyframes wordLogo4{
+@keyframes word4{
   from{
     top: -2rem;
   }
@@ -51,7 +51,7 @@
     top: 0;
   }
 }
-@keyframes wordLogo5{
+@keyframes word5{
   from{
     top: -2rem;
   }

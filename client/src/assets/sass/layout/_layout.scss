@@ -14,6 +14,14 @@ a {
   .flex {
     flex-wrap: wrap;
   }
+  
+  .top {
+    margin-bottom: 2rem;
+
+    .title {
+      font-size: 2.8rem;
+    }
+  }
 }
 
 .wrapper {

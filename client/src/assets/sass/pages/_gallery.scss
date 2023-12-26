@@ -1,0 +1,104 @@
+.gallery {
+  &_content {
+    margin-bottom: 3rem;
+  }
+
+  &_chunk {
+    @media (min-width: $screenSm) {
+      display: flex;
+      flex-flow: column wrap;
+      height: 50rem;
+      margin-bottom: 1rem;
+    }
+
+    &--left {
+      .gallery_item {
+        &:first-of-type {
+          @media (min-width: $screenSm) {
+            width: 66.66666%;
+            height: 50rem;
+            padding-right: 0.5rem;
+          }
+        }
+
+        &:nth-of-type(2) {
+          @media (min-width: $screenSm) {
+            padding-left: 0.5rem;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        &:nth-of-type(3) {
+          @media (min-width: $screenSm) {
+            padding-left: 0.5rem;
+            margin-top: 0.5rem;
+          }
+        }
+      }
+    }
+
+    &--right {
+      .gallery_item {
+        &:first-of-type {
+          @media (min-width: $screenSm) {
+            padding-right: 0.5rem;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        &:nth-of-type(2) {
+          @media (min-width: $screenSm) {
+            padding-right: 0.5rem;
+            margin-top: 0.5rem;
+          }
+        }
+
+        &:nth-of-type(3) {
+          @media (min-width: $screenSm) {
+            width: 66.66666%;
+            height: 50rem;
+            padding-left: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .gallery_item {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-bottom: 1rem;
+
+      @media (min-width: $screenSm) {
+        width: 33.33333%;
+        height: 24.5rem;
+        overflow: hidden;
+        margin-bottom: 0;
+      }
+
+      >img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
+
+      .card_category {
+        transition: all 0.3s ease-in-out;
+      }
+
+      &:hover {
+        .card_category {
+          text-shadow: 0.2rem 0.2rem 0.4rem $color1;
+        }
+      }
+    }
+  }
+
+  &_actions {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+}

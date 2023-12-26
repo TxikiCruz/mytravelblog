@@ -7,12 +7,13 @@ import Header from './components/common/Header'
 import Breadcrumb from './components/common/Breadcrumb'
 import Footer from './components/common/Footer'
 import Home from './components/Home'
-import Login from './containers/Login'
-import Register from './containers/Register'
+import Login from './containers/login/Login'
+import Register from './containers/login/Register'
 import SearchPage from './components/search/SearchPage'
 import SearchPageContinent from './components/search/SearchPageContinent'
 import Experience from './components/experiences/Experience'
 import AllExperiences from './components/experiences/AllExperiences'
+import Gallery from './components/Gallery'
 import Contact from './components/Contact'
 import Experiences from './containers/experiences/Experiences'
 import Categories from './containers/Categories'
@@ -134,6 +135,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/experiences" element={<AllExperiences />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path='/login' element={<Login login={login} />} />
           <Route path='/register' element={<Register login={login} logout={logout} />} />
