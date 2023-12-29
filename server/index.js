@@ -14,7 +14,7 @@ const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 async function connecting() {
   try {
-    await mongoose.connect('mongodb+srv://txikicruz:txikicruz@cluster0-qtjup.mongodb.net/project?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true })
+    await mongoose.connect(process.env.ATLAS_URL, { useUnifiedTopology: true, useNewUrlParser: true })
     console.log('Connected to the DB')
   } catch (error) {
     console.log(error);
