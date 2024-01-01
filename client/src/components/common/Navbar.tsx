@@ -87,7 +87,7 @@ const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
           }
           {
             isLoggedIn && <>
-              <span className="user">{user}</span>
+              {user && <span className="user">{user}</span>}
               <MdOutlineLogout />
             </>
           }

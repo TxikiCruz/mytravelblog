@@ -112,7 +112,7 @@ const Experiences = () => {
   // experiences by user
   const expsByUser = sortedExps.filter((exp) => exp.user === user)
   // experiences displayed according to role
-  const currentExps = role === 'admin' ? sortedExps.slice(indexOfFirstItem, indexOfLastItem) : expsByUser
+  const currentExps = role === 'admin' ? sortedExps.slice(indexOfFirstItem, indexOfLastItem) : expsByUser.slice(indexOfFirstItem, indexOfLastItem)
   const paginate = (i: number) => setCurrentPage(i)
 
 
@@ -135,18 +135,20 @@ const Experiences = () => {
     <form className="form">
       <div className="table_scroll">
         <div className="table">
-          <div className="tGroup tHead">
-            <div className="tRow">
-              <div className="tCol w7_5"><span><strong>Date</strong></span></div>
-              <div className="tCol w10"><span><strong>User</strong></span></div>
-              <div className="tCol w15"><span><strong>Image</strong></span></div>
-              <div className="tCol w10"><span><strong>Category</strong></span></div>
-              <div className="tCol w15"><span><strong>Title</strong></span></div>
-              <div className="tCol w27_5"><span><strong>Content</strong></span></div>
-              <div className="tCol w7_5 center"><span><strong>Score</strong></span></div>
-              <div className="tCol w10 center"><span><strong>Action</strong></span></div>
+          {currentExps.length > 0 &&
+            <div className="tGroup tHead">
+              <div className="tRow">
+                <div className="tCol w7_5"><span><strong>Date</strong></span></div>
+                <div className="tCol w10"><span><strong>User</strong></span></div>
+                <div className="tCol w15"><span><strong>Image</strong></span></div>
+                <div className="tCol w10"><span><strong>Category</strong></span></div>
+                <div className="tCol w15"><span><strong>Title</strong></span></div>
+                <div className="tCol w27_5"><span><strong>Content</strong></span></div>
+                <div className="tCol w7_5 center"><span><strong>Score</strong></span></div>
+                <div className="tCol w10 center"><span><strong>Action</strong></span></div>
+              </div>
             </div>
-          </div>
+          }
           {
             !loading && currentExps.map((ele) => {
               return <div className="tGroup" key={ele._id}>
@@ -227,12 +229,23 @@ const Experiences = () => {
     </form>
 
     {
-      experiences.length > 0 && experiences.length > itemsPerPage &&
+      role === 'admin' && experiences.length > 0 && experiences.length > itemsPerPage && 
 
       <Pagination
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         totalItems={experiences.length}
+        paginate={paginate}
+      />
+    }
+
+    {
+      role === 'author' && expsByUser.length > 0 && expsByUser.length > itemsPerPage && 
+
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        totalItems={expsByUser.length}
         paginate={paginate}
       />
     }
