@@ -3,9 +3,9 @@ const nodemailer = require('nodemailer')
 // selecting mail service and authorazing with our credentials
 const transport = nodemailer.createTransport({
 	// you need to enable the less secure option on your gmail account
-	service: 'gmail',
+	service: 'Hotmail',
 	auth: {
-		type: 'OAuth2',
+		//type: 'OAuth2',
 		user: process.env.NODEMAILER_EMAIL,
 		pass: process.env.NODEMAILER_PASSWORD,
 		//clientId: process.env.OAUTH_CLIENTID,

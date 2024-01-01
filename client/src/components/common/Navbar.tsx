@@ -93,17 +93,14 @@ const Navbar = ({ isLoggedIn, logout }: PropsNavbar) => {
           }
         </button>
 
-        <ul
-          className={`navbar_list ${isOpenNavAdmin ? 'open' : ''}`}
-          onClick={() => setIsOpenNavAdmin(false)}
-        >
+        <ul className={`navbar_list ${isOpenNavAdmin ? 'open' : ''}`} onClick={() => setIsOpenNavAdmin(false)}>
           {
             !isLoggedIn && <li><NavLink to="/login">Login</NavLink></li>
           }
           <li><NavLink to="/register">Register</NavLink></li>
           {
             isLoggedIn && <li className="navbar_list_logout">
-              <a onClick={() => onClickLogout()}>logout</a>
+              <button onClick={() => onClickLogout()}>logout</button>
             </li>
           }
         </ul>
