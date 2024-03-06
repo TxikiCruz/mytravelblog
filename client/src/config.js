@@ -2,7 +2,7 @@
 
 const URL = window.location.hostname === `localhost`
   ? `http://localhost:3040`
-  : `http://144.126.206.220`
+  : `http://146.190.159.240`
 
 // const customInstance = axios.create({
 //   baseURL: URL,
